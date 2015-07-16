@@ -1,0 +1,34 @@
+    <ons-page>
+      <ons-toolbar>
+        <div class="center">
+          <img src="{{rss.thumbnail}}" ng-if="rss.thumbnail"/>
+          {{rss.title}}
+          <span class="notification">{{rss.unread}}</span>
+        </div>
+      </ons-toolbar>
+
+      <ons-list>
+
+        <ons-list-item modifier="chevron" class="list-item-container" ng-repeat="item in rss.items">
+          <ons-row>
+            <ons-col>
+              <img src="{{item.thumbnail}}" class="thumbnail" ng-if="item.thumbnail"/>
+            </ons-col>
+            <ons-col>
+              <div class="name">
+                {{item.title}}
+              </div>
+              <div class="unread">
+                <span class="notification">{{item.unread}}</span>
+              </div>
+              <div class="desc">
+                {{item.excerpt}}
+              </div>
+            </ons-col>
+            <ons-col width="40px"></ons-col>
+          </ons-row>
+        </ons-list-item>
+
+      </ons-list>
+
+    </ons-page>

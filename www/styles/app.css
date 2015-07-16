@@ -71,3 +71,8 @@ input[type=email], input[type=password] {
   font-size: 13px;
 }
 
+/*SETTINGS*/
+.settings fieldset {
+	padding-bottom: 20px;
+	border: none;
+}

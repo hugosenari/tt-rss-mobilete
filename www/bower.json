@@ -1,6 +1,8 @@
 {
   "name": "ttRssMobilete",
   "version": "0.0.1",
-  "dependencies": {"onsenui": ""}
+  "dependencies": {
+    "onsenui": "",
+    "angular-local-storage": "~0.2.2"
+  }
 }
-

@@ -1,7 +1,7 @@
 # tt-rss-mobilete
 My own clone of https://github.com/mboinet/ttrss-mobile
 
-# licence
+# license
 Any with the following criteria: http://opensource.org/osd
 
 # run local

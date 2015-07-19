@@ -1,22 +1,26 @@
-<ons-page ng-controller="LoginController">
-  <ons-toolbar>
-    <div class="left">
-      <ons-back-button ng-if="(guidon.hideBack ? false : true)">Back</ons-back-button>
+<md-content ng-controller="LoginController">
+  <md-subheader class="md-primary">Login</md-subheader>
+  <form class="login-form" name="form">
+    <md-input-container>
+      <label>Login</label>
+      <input required name="user" ng-model="login.user" type="text">
+      <div ng-messages="form.user.$error">
+        <div ng-message="required">This is required.</div>
+        <div ng-message="invalid">Wrong user</div>
+        <div ng-message="unavailable">The service is down/wrong.</div>
+      </div>
+    </md-input-container>
+    <md-input-container>
+      <label>Password</label>
+      <input type="password" required name="password" ng-model="login.password">
+      <div ng-messages="form.password.$error">
+        <div ng-message="required">This is required.</div>
+        <div ng-message="invalid">Wrong pass</div>
+      </div>
+    </md-input-container>     
+    <div>
+        <md-button class="md-raised md-primary" ng-click="doLogin(login)"  ng-show="!saving">Login</md-button>
+        <md-progress-circular md-mode="indeterminate" ng-show="saving"></md-progress-circular>
     </div>
-    <div class="center">TinyTinyRSS-Mobilete {{title}}</div>
-    <div class="right">
-      <a href="#/phones/">
-        <ons-toolbar-button ng-if="(guidon.hideSettings ? false : true)">
-          Settings 
-          <i class="ion-settings"></i>
-        </ons-toolbar-button>
-      </a>
-    </div>
-  </ons-toolbar>
-  <div class="login-form">
-    <input type="email" class="text-input--underbar" placeholder="Email" value="">
-    <input type="password" class="text-input--underbar" placeholder="Password" value="">
-    <br><br>
-    <ons-button modifier="large" class="login-button">Log In</ons-button>
-  </div>
-</ons-page>
+  </form>
+</md-content>

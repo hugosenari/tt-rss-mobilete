@@ -1,34 +1,21 @@
-    <ons-page>
-      <ons-toolbar>
-        <div class="center">
-          <img src="{{rss.thumbnail}}" ng-if="rss.thumbnail"/>
-          {{rss.title}}
-          <span class="notification">{{rss.unread}}</span>
+<md-content ng-controller="FeedController">
+    <md-subheader class="md-primary">
+      <img ng-src="{{iconPath(feed.id)}}" class="thumb" alt="{{feed.title}}"  ng-if="feed.has_icon">
+      ({{feed.unread}}) {{feed.title}}
+    </md-subheader>
+    <md-progress-circular md-mode="indeterminate" ng-show="!items"></md-progress-circular>
+    <md-list ng-show="items" class="animate-show">
+      <md-list-item
+                   ng-class="item.unread ? 'md-3-line unread':'md-3-line read'"
+                   ng-repeat="item in items"
+                   ng-click="openItem(item)"
+                   md-swipe-left="markAsReaded(item.id, $event)">
+        <img ng-src="{{iconPath(item.id)}}" class="thumb" alt="{{item.title}}"  ng-if="item.has_icon">
+        <div class="md-list-item-text">
+          <h3>{{item.title}}</h3>
+          <p>{{item.excerpt}}</p>
         </div>
-      </ons-toolbar>
-
-      <ons-list>
-
-        <ons-list-item modifier="chevron" class="list-item-container" ng-repeat="item in rss.items">
-          <ons-row>
-            <ons-col>
-              <img src="{{item.thumbnail}}" class="thumbnail" ng-if="item.thumbnail"/>
-            </ons-col>
-            <ons-col>
-              <div class="name">
-                {{item.title}}
-              </div>
-              <div class="unread">
-                <span class="notification">{{item.unread}}</span>
-              </div>
-              <div class="desc">
-                {{item.excerpt}}
-              </div>
-            </ons-col>
-            <ons-col width="40px"></ons-col>
-          </ons-row>
-        </ons-list-item>
-
-      </ons-list>
-
-    </ons-page>
+        <i class="material-icons">arrow_forward</i>
+      </md-list-item>
+    </md-list>
+</md-content>

@@ -1,7 +1,12 @@
-    <ons-page>
-      <ons-toolbar>
-        <div class="center">{{item.title}}</div>
-      </ons-toolbar>
-      <p>{{item.excerpt}}</p>
-      <div>{{item.content}}</div>
-    </ons-page>
+<md-content ng-controller="ArticleController">
+    <md-subheader class="md-primary">
+      <!--<img ng-src="{{iconPath(article.id)}}" class="thumb" alt="{{article.title}}"  ng-if="feed.has_icon">-->
+      <a ng-href="article.link">{{article.title}}</a>
+      <p ng-bind-html="article.excerpt"></p>
+    </md-subheader>
+    <br/>
+    <br/>
+    <br/>
+    <md-progress-circular md-mode="indeterminate" ng-show="!items"></md-progress-circular>
+    <div ng-repeat="item in items" ng-bind-html="item.content"></div>
+</md-content>

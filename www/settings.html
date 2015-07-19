@@ -1,15 +1,17 @@
-<ons-page class="settings">
-    <ons-toolbar>
-        <div class="center">Settings</div>
-    </ons-toolbar>
-    <ul class="list">
-        <fieldset ng-if="app-settings">
-            <h3>App Settings</h3>
-        </fieldset>
-        <fieldset>
-            <h3>Server Settings</h3>
-            <input type="text" class="text-input" placeholder="TinyTiny-RSS URL" value="{{}}" name="api-url">
-        </fieldset>
-        <button class="button--large--cta" >Save</button>
-    </ul>
+<md-content ng-controller="SettingsController">
+    <md-subheader class="md-primary">Settings</md-subheader>
+    <form class="settings-form" name="form">
+      <md-input-container>
+        <label>Api URL</label>
+        <input required name="api" ng-model="settings.api" ng-value="settings.api" type="text"/>
+        <div ng-messages="form.api.$error">
+          <div ng-message="required">This is required.</div>
+          <div ng-message="invalid">This is invalid or unavailable api.</div>
+        </div>
+      </md-input-container>
+      <div>
+        <md-progress-circular md-mode="indeterminate" ng-show="saving"></md-progress-circular>
+        <md-button class="md-raised md-primary" ng-click="doSave(settings)" ng-show="!saving">Save</md-button>
+      </div>
+    </form>
 </ons-page>

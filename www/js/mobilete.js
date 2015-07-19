@@ -1,5 +1,4 @@
 (function(){
-	var module = ons.bootstrap('ttRssMobilete', [
-		'onsen',
-		'onsen.directives']);
+	'use strict';
+	angular.module('ttRssMobilete', ['ngMaterial', 'ngAnimate', 'ngMessages', 'ngSanitize']);
 })();

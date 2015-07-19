@@ -1,78 +1,15 @@
-.left {
-	text-align: left;
+.md-toolbar-tools .material-icons{
+  font-size: 42px;
+}
+.md-3-line  .material-icons{
+  font-size: 32px;
 }
 
-
-.switch--list-item {
-  margin-right: 0px;
+.thumb {
+  max-height: 20px;
+  padding-right: 10px;
 }
 
-.settings-header {
-  font-weight: 500;
-  font-size: 14px;
-  opacity: 0.4;
-  padding: 10px 0 0px 10px;
-  margin-bottom: -4px;
-}
-
-.settings-list {
-  margin-top: 10px;
-}
-
-
-.login-form {
-  text-align: center;
-  width: 80%;
-  margin: 60px auto 0;
-}
-
-input[type=email], input[type=password] {
-  display: block;
-  width: 100%;
-  margin: 0 auto;
-  outline: none;
-  padding-top: 24px;
-  padding-bottom: 24px;
-}
-
-.login-button {
-  width: 100%;
-  margin: 0 auto;
-}
-
-
-.list-item-container {
-  line-height: 1;
-  padding: 15px 0px 15px 15px;
-}
-
-.thumbnail {
-  width: 80px;
-  height: 80px;
-  border-radius: 4px;
-  -webkit-border-radius: 4px;
-}
-
-.name {
-  font-weight: 500;
-  line-height: 16px;
-  font-size: 15px;
-  margin-bottom: 6px;
-}
-
-.location {
-  font-size: 14px;
-  opacity: 0.4;
-  margin-bottom: 6px;
-}
-
-.desc {
-  line-height: 1.2;
-  font-size: 13px;
-}
-
-/*SETTINGS*/
-.settings fieldset {
-	padding-bottom: 20px;
-	border: none;
+.unread .p{
+  font-weight: bolder;
 }

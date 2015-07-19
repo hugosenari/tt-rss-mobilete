@@ -1,20 +1,8 @@
 (function(){
 	'use strict';
-	angular.module('ttRssMobilete').factory('Messages', function(){
-		var messages = [];
-		function setMessage(msg) {
-			messages.push(msg);
-		}
-		function getMessages() {
-			return messages.slice(0);
-		}
-		return {
-			set: setMessage,
-			get: getMessages
-		};
-	});
+    var mobilete = angular.module('ttRssMobilete');
 	
-	angular.module('ttRssMobilete').factory('Settings', function($http) {
+	mobilete.factory('Settings', function($http) {
 		var settings = angular.extend({
 			'api-url': '/api/',
 			'sid':  null,
@@ -25,31 +13,23 @@
 		}, localStorage.getItem('settings'));
 		
 		function getSettings() {
-			return angular.extend({}, settings, localStorage.getItem('settings'));
+			return angular.extend({}, settings, JSON.parse(localStorage.getItem('settings')));
 		}
 		
 		function setSetting(key, value) {
 			settings[key] = value;
-			localStorage.setItem('settings', settings);
+			localStorage.setItem('settings', JSON.stringify(settings) );
+		}
+		
+		function getIconUri(id) {
+			return settings['api-url'] + '../' + settings['icons_dir'] + '/' + id + '.ico';
 		}
 
 		return {
 			get: getSettings,
-			set: setSetting
+			set: setSetting,
+			icon: getIconUri
 		}
 	});
-    
-	angular.module('ttRssMobilete').factory('ciclomotor', function(){
-		var messages = [];
-		function setMessage(msg) {
-			messages.push(msg);
-		}
-		function getMessages() {
-			return messages.slice(0);
-		}
-		return {
-			set: setMessage,
-			get: getMessages
-		};
-	});
+
 })();

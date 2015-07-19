@@ -1,6 +1,7 @@
 (function(){
 	'use strict';
-	angular.module('ttRssMobilete').factory('Api', function($http) {
+    var mobilete = angular.module('ttRssMobilete');
+	mobilete.factory('Api', ['$http', '$q', function($http, $q) {
 		var api = '/api/',
 			status = null,
 			dataRequest = {},
@@ -8,22 +9,33 @@
 			
 		function rejected(defer, data, status) {
 			if (!data) {
-				defer.reject({data: data, reason: reasons[3], status: status});
+				defer.reject({data: data, id: reasons[3], status: status});
 				return true;
 			} else if (data.status) {
+				var id = reasons[3];
 				if (data.content){
 					if (data.content.error === 'NOT_LOGGED_IN') {
-						defer.reject({data: data, reason: reasons[1], status: status});
+						id = reasons[1];
 					}
 					if (data.content.error === 'LOGIN_ERROR') {
-						defer.reject({data: data, reason: reasons[2], status: status});
+						id = reasons[2];
 					}
-				} else {
-					defer.reject({data: data, reason: reasons[3], status: status});	
 				}
+				defer.reject({data: data, id: id, status: status});	
+				return true;
+			} else if (status > 299) {
+				defer.reject({data: data, id: reasons[0], status: status});
 				return true;
 			}
 			return false;
+		}
+		
+		function defer(api, dataRequest){
+			var result = $q.defer();
+			$http.post(api, dataRequest)
+				.success(function(data, status){if (!rejected(result, data, status)) {result.resolve(data);}})
+				.error(function(data, status){rejected(result, data, status);});
+			return result.promise;
 		}
 		
 		return {
@@ -36,29 +48,64 @@
 					'op': 'getConfig',
 					'sid': sid
 				}
-	
-				var result = $q.defer();
-				$http.post(api, data)
-					.success(function(data, status){if (!rejected(result, data, status)) {result.resolve(data);}})
-					.error(function(data, status){rejected(result, data, status);});
-				return result.promise;
+				return defer(api, dataRequest);
 			},
 			login: function login(user, pass, opts) {
 				opts = opts || {};
 				api = opts.api||api;
 				
-				var dataRequest = {
+				var data = {
 					'op': 'login',
 					'user': user,
 					'password': pass
 				}
-				
-				var result = $q.defer();
-				$http.post(api, data)
-					.success(function(data, status){if (!rejected(result, data, status)) {result.resolve(data);}})
-					.error(function(data, status){rejected(result, data, status);});
+				return defer(api, data).then(function(data) {
+					dataRequest.sid = data.content.session_id;
+					return data;
+				});
+			},
+			setApi: function(newApi) {
+				var data = {
+					'op': 'login'
+				},
+					subResult = defer(newApi, data),
+					result = $q.defer();
+					
+				subResult.catch(function(reason) {
+					if (reason.id === 'invalid-api') {
+						result.reject(reason);
+					} else {
+						api = newApi;
+						result.resolve(reason);
+					}
+				});
+
 				return result.promise;
+			},
+			categories: function(){
+				return defer(api, angular.extend({}, dataRequest, {
+					op:'getCategories'}));
+			},
+			feeds: function(id){
+				return defer(api, angular.extend({}, dataRequest, {
+					op:'getFeeds', cat_id: id}));
+			},
+			feed: function(id){
+				return defer(api, angular.extend({}, dataRequest, {
+					op:'getHeadlines', feed_id: id}));
+			},
+			markAsReaded: function(id){
+				return defer(api, angular.extend({}, dataRequest, {
+					op:'updateArticle',
+					article_ids: id,
+					mode: 0,
+					field: 2
+				}));
+			},
+			article: function(id){
+				return defer(api, angular.extend({}, dataRequest, {
+					op:'getArticle', article_id: id}));
 			}
 		}
-	});
+	}]);
 })();

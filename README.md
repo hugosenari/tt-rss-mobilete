@@ -16,3 +16,9 @@ cd ..
 grunt
 ```
 
+# TODO
+* Add routes (permalink, back, forward...)
+* More settings
+* Better interface
+* And other suggestions from [ttrss-mobile](https://github.com/mboinet/ttrss-mobile/issues)
+

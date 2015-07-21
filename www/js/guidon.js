@@ -12,7 +12,11 @@
 		appScope = $scope;
 		$scope.template = Settings.get().sid ? 'categories.html' : 'login.html';
 		if (Settings.get().sid) {
-			Api.session(Settings.get().sid);
+			Api.session(Settings.get().sid)
+			.catch(function (){
+				Settings.set('sid', null);
+				goTo('login.html');
+			});
 		}
 		$scope.goTo = goTo;
 	}]);
@@ -49,7 +53,7 @@
 			Api.login(login.user, login.password).then(
 				function (data) {
 					Settings.set('sid', data.content.session_id);
-					goTo('categories.tpl');
+					goTo('categories.html');
 				},
 				function (reason) {
 					if (reason.id === 'invalid-api') {

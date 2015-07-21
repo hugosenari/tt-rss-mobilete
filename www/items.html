@@ -11,7 +11,8 @@
                    ng-class="item.unread ? 'md-3-line unread':'md-3-line read'"
                    ng-repeat="item in items"
                    ng-click="openItem(item)"
-                   md-swipe-left="markAsReaded(item.id, $event)">
+                   md-swipe-left="markAsReaded(item.id, $event)"
+                   md-swipe-right="openInOtherTab(item, $event)">
         <img ng-src="{{iconPath(item.id)}}" class="thumb" alt="{{item.title}}"  ng-if="item.has_icon">
         <div class="md-list-item-text">
           <h3>{{item.title}}</h3>

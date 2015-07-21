@@ -148,6 +148,13 @@
 			angular.element(event.target).removeClass('unread');
 			angular.element(event.target).addClass('read');
 		}
+		$scope.openInOtherTab = function(article, event) {
+			inform('Open in new tab');
+			Api.markAsReaded(article.id);
+			angular.element(event.target).removeClass('unread');
+			angular.element(event.target).addClass('read');
+			window.open(article.link, Math.random +'');
+		}
 	}]);
 	
 	mobilete.controller('ArticleController', ['$scope', 'Settings', 'Api',

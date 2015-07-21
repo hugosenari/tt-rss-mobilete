@@ -1,6 +1,8 @@
 <md-content ng-controller="CategoryController">
     <md-subheader class="md-primary">Categories</md-subheader>
-    <md-progress-circular md-mode="indeterminate" ng-show="!categories"></md-progress-circular>
+    <md-content layout-align="center center" layout>
+      <md-progress-circular md-mode="indeterminate" ng-show="!categories"></md-progress-circular>
+    </md-content>
     <md-list ng-show="categories">
       <div ng-controller="CategoryItemController" ng-repeat="category in categories | orderBy:'-order_id'">
           <md-list-item class="md-3-line"
@@ -11,7 +13,10 @@
             <i class="material-icons">keyboard_arrow_down</i>
           </md-list-item>
           <md-list ng-show="colapse" class="animate-show">
-            <md-progress-circular md-mode="indeterminate" ng-show="!items"></md-progress-circular>
+            <md-content layout-align="center center" layout>
+              <md-progress-circular md-mode="indeterminate" ng-show="!items"></md-progress-circular>
+            </md-content>
+            
             <div ng-show="items">
               <md-list-item
                              ng-class="(item.unread ? 'md-3-line unread':'md-3-line read')+($even ? ' even' : ' odd')"

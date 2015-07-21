@@ -101,6 +101,9 @@
 		Api.categories().then(
 			function (data) {
 				$scope.categories = data.content;
+				if (!data.content.length){
+					inform('Empty');
+				}
 			}
 		);
 	}]);
@@ -113,6 +116,9 @@
 			if (value) {
 				Api.feeds(value).then(function(data){
 					$scope.items = data.content;
+					if (!data.content.length){
+						inform('Empty');
+					}
 				});
 			}
 		});
@@ -128,6 +134,9 @@
 		$scope.items = false;
 		Api.feed(history[0].feed.id).then(function(data){
 			$scope.items = data.content;
+			if (!data.content.length){
+				inform('Empty');
+			}
 		});
 		$scope.openItem= function(item){
 			goTo('detail.html', {article: item});
@@ -146,6 +155,13 @@
 		$scope.article = history[0].article;
 		$scope.iconPath = Settings.icon;
 		Api.article(history[0].article.id).then(function(data){
+			for (var i in data.content) {
+				data.content[i].content =
+				(
+				 data.content[i].content
+				 ||''
+				).replace(/width=/, 'width-change-by-mobilete-rss=');
+			}
 			$scope.items = data.content;
 			Api.markAsReaded(history[0].article.id);
 		});

@@ -20,7 +20,10 @@
     </md-input-container>     
     <div>
         <md-button class="md-raised md-primary" ng-click="doLogin(login)"  ng-show="!saving">Login</md-button>
-        <md-progress-circular md-mode="indeterminate" ng-show="saving"></md-progress-circular>
+        
     </div>
+    <md-content layout-align="center center" layout>
+        <md-progress-circular md-mode="indeterminate" ng-show="saving"></md-progress-circular>
+    </md-content>
   </form>
 </md-content>

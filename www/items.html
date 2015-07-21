@@ -3,7 +3,9 @@
       <img ng-src="{{iconPath(feed.id)}}" class="thumb" alt="{{feed.title}}"  ng-if="feed.has_icon">
       ({{feed.unread}}) {{feed.title}}
     </md-subheader>
-    <md-progress-circular md-mode="indeterminate" ng-show="!items"></md-progress-circular>
+    <md-content layout-align="center center" layout>
+      <md-progress-circular md-mode="indeterminate" ng-show="!items"></md-progress-circular>
+    </md-content>
     <md-list ng-show="items" class="animate-show">
       <md-list-item
                    ng-class="item.unread ? 'md-3-line unread':'md-3-line read'"

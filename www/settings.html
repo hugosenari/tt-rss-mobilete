@@ -9,8 +9,11 @@
           <div ng-message="invalid">This is invalid or unavailable api.</div>
         </div>
       </md-input-container>
+    <md-content layout-align="center center" layout>
+      <md-progress-circular md-mode="indeterminate" ng-show="saving"></md-progress-circular>
+    </md-content>
       <div>
-        <md-progress-circular md-mode="indeterminate" ng-show="saving"></md-progress-circular>
+        
         <md-button class="md-raised md-primary" ng-click="doSave(settings)" ng-show="!saving">Save</md-button>
       </div>
     </form>

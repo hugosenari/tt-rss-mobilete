@@ -4,7 +4,10 @@
       <a ng-href="{{article.link}}">{{article.title}}</a>
       <p ng-bind-html="article.excerpt"></p>
     </md-subheader>
-    <br/>
-    <md-progress-circular md-mode="indeterminate" ng-show="!items"></md-progress-circular>
-    <div ng-repeat="item in items" ng-bind-html="item.content"></div>
+    <md-content layout-align="center center" layout>
+      <md-progress-circular md-mode="indeterminate" ng-show="!items"></md-progress-circular>
+    </md-content>
+    <md-content layout-padding class="article-content">
+      <div ng-repeat="item in items" ng-bind-html="item.content"></div>
+    </md-content>
 </md-content>

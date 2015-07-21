@@ -132,14 +132,16 @@
 		$scope.feed = history[0].feed;
 		$scope.iconPath = Settings.icon;
 		$scope.items = false;
+		var items = []
 		Api.feed(history[0].feed.id).then(function(data){
 			$scope.items = data.content;
+			items = data.content;
 			if (!data.content.length){
 				inform('Empty');
 			}
 		});
-		$scope.openItem= function(item){
-			goTo('detail.html', {article: item});
+		$scope.openItem= function(item, index){
+			goTo('detail.html', {article: item, list:items, index: index});
 		};
 		
 		$scope.markAsReaded = function(id, event){
@@ -157,20 +159,40 @@
 		}
 	}]);
 	
-	mobilete.controller('ArticleController', ['$scope', 'Settings', 'Api',
-						function($scope, Settings, Api) {
-		$scope.article = history[0].article;
-		$scope.iconPath = Settings.icon;
-		Api.article(history[0].article.id).then(function(data){
-			for (var i in data.content) {
-				data.content[i].content =
-				(
-				 data.content[i].content
-				 ||''
-				).replace(/width=/, 'width-change-by-mobilete-rss=');
+	mobilete.controller('ArticleController', ['$scope', 'Api',
+						function($scope, Api) {
+		$scope.article = history[0].article;		
+		function load(id) {
+			$scope.items = null
+			Api.article(id).then(function(data){
+				for (var i in data.content) {
+					data.content[i].content =
+					(
+					 data.content[i].content
+					 ||''
+					).replace(/width=/, 'width-change-by-mobilete-rss=');
+				}
+				$scope.items = data.content;
+				Api.markAsReaded(id);
+			});
+		}
+		
+		load(history[0].article.id);
+
+		$scope.openOtherItem= function(to){
+			var list = history[0].list,
+				index = history[0].index + to;
+			if (index >= 0 && index <= list.length-1) {
+				history[0] = {
+					article: list[index],
+					list:list,
+					index: index
+				};
+				$scope.article = list[index];
+				load(list[index].id);
+			} else {
+				inform('Nothing this side');
 			}
-			$scope.items = data.content;
-			Api.markAsReaded(history[0].article.id);
-		});
+		};
 	}]);
 })();

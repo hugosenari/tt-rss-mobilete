@@ -1,6 +1,7 @@
-<md-content ng-controller="ArticleController">
+<md-content ng-controller="ArticleController"
+                   md-swipe-left="openOtherItem(-1)"
+                   md-swipe-right="openOtherItem(+1)">
     <md-subheader class="md-primary">
-      <!--<img ng-src="{{iconPath(article.id)}}" class="thumb" alt="{{article.title}}"  ng-if="feed.has_icon">-->
       <a ng-href="{{article.link}}">{{article.title}}</a>
       <p ng-bind-html="article.excerpt"></p>
     </md-subheader>

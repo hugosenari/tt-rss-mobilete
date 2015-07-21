@@ -2,23 +2,33 @@
 	'use strict';
     var mobilete = angular.module('ttRssMobilete'),
 		appScope = null,
-		goTo = function(tpl){
-			appScope.backto = appScope.template;
-			appScope.template = tpl;
+		history = [],
+		goTo = function(page, params){
+			history.unshift(angular.extend({}, params, {tpl: page}));
+			appScope.template = page
+		},
+		back = function() {
+			history.shift();
+			appScope.template = history[0].tpl;
 		};
 		
 	mobilete.controller('AppController', ['$scope', 'Settings', 'Api',
 						function($scope, Settings, Api) {
 		appScope = $scope;
-		$scope.template = Settings.get().sid ? 'categories.html' : 'login.html';
 		if (Settings.get().sid) {
-			Api.session(Settings.get().sid)
-			.catch(function (){
-				Settings.set('sid', null);
-				goTo('login.html');
+			Api.session(Settings.get().sid).then(
+				function() {
+					goTo('categories.html')
+				},
+				function (){
+					Settings.set('sid', null);
+					goTo('login.html');
 			});
+		} else {
+			goTo('login.html');
 		}
 		$scope.goTo = goTo;
+		$scope.back = back;
 	}]);
 	
 	mobilete.controller('SettingsController', ['$scope', 'Settings', 'Api',
@@ -33,7 +43,7 @@
 				function() {
 					Settings.set('api-url', settings.api);
 					$scope.form.api.$error.invalid = false;
-					goTo($scope.backto);
+					back();
 				},
 				function() {
 					$scope.form.api.$error.invalid = true;
@@ -88,23 +98,20 @@
 			}
 		});
 		$scope.openItem= function(item){
-			appScope.feed = item;
-			goTo('items.html');
+			goTo('items.html', {feed:item});
 		};
 	}]);
 	
 	mobilete.controller('FeedController', ['$scope', 'Settings', 'Api',
 						function($scope, Settings, Api) {
-		$scope.feed = appScope.feed;
+		$scope.feed = history[0].feed;
 		$scope.iconPath = Settings.icon;
 		$scope.items = false;
-		Api.feed(appScope.feed.id).then(function(data){
-			console.log(data.content);
+		Api.feed(history[0].feed.id).then(function(data){
 			$scope.items = data.content;
 		});
 		$scope.openItem= function(item){
-			appScope.article = item;
-			goTo('detail.html');
+			goTo('detail.html', {article: item});
 		};
 		
 		$scope.markAsReaded = function(id, event){
@@ -117,11 +124,11 @@
 	
 	mobilete.controller('ArticleController', ['$scope', 'Settings', 'Api',
 						function($scope, Settings, Api) {
-		$scope.article = appScope.article;
+		$scope.article = history[0].article;
 		$scope.iconPath = Settings.icon;
-		Api.article(appScope.article.id).then(function(data){
+		Api.article(history[0].article.id).then(function(data){
 			$scope.items = data.content;
-			Api.markAsReaded(appScope.article.id);
+			Api.markAsReaded(history[0].article.id);
 		});
 	}]);
 })();

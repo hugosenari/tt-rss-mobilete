@@ -5,8 +5,6 @@
       <p ng-bind-html="article.excerpt"></p>
     </md-subheader>
     <br/>
-    <br/>
-    <br/>
     <md-progress-circular md-mode="indeterminate" ng-show="!items"></md-progress-circular>
     <div ng-repeat="item in items" ng-bind-html="item.content"></div>
 </md-content>

@@ -22,7 +22,11 @@
     <body ng-controller="AppController">
         <md-toolbar>
             <div class="md-toolbar-tools">
-                <md-button class="md-icon-button back-button" aria-label="Back" ng-click="goTo(backto)" ng-if="template != 'categories.html' && template != 'login.html'">
+                <md-button
+                           class="md-icon-button back-button"
+                           aria-label="Back"
+                           ng-click="back()"
+                           ng-if="template != 'categories.html' && template != 'login.html'">
                     <i class="material-icons">arrow_back</i>
                 </md-button>
                 <span flex></span>
@@ -30,7 +34,11 @@
                     <span>TTRSS-Mobilete</span>
                 </h4>
                 <span flex></span>
-                <md-button class="md-icon-button" aria-label="Settings" ng-click="goTo('settings.html')"  ng-if="template != 'settings.html'">
+                <md-button
+                           class="md-icon-button"
+                           aria-label="Settings"
+                           ng-click="goTo('settings.html')"
+                           ng-if="template != 'settings.html'">
                     <i class="material-icons">settings</i>
                 </md-button>
             </div>

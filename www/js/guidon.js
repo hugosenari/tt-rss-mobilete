@@ -153,7 +153,7 @@
 			Api.markAsReaded(article.id);
 			angular.element(event.target).removeClass('unread');
 			angular.element(event.target).addClass('read');
-			window.open(article.link, Math.random +'');
+			window.open(article.link, '_'+Math.random());
 		}
 	}]);
 	

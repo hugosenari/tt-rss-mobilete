@@ -2,7 +2,7 @@
 	'use strict';
     var mobilete = angular.module('ttRssMobilete');
 	
-	mobilete.factory('Settings', function($http) {
+	mobilete.factory('Settings', ['$http', function($http) {
 		var settings = angular.extend({
 			'api-url': '/api/',
 			'sid':  null,
@@ -30,6 +30,5 @@
 			set: setSetting,
 			icon: getIconUri
 		}
-	});
-
+	}]);
 })();

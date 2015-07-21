@@ -1,7 +1,7 @@
 <md-content ng-controller="CategoryController">
     <md-subheader class="md-primary">Categories</md-subheader>
     <md-progress-circular md-mode="indeterminate" ng-show="!categories"></md-progress-circular>
-    <md-list ng-show="categories" class="animate-show">
+    <md-list ng-show="categories">
       <div ng-controller="CategoryItemController" ng-repeat="category in categories | orderBy:'-order_id'">
           <md-list-item class="md-3-line"
               ng-click="colapse=category.id">

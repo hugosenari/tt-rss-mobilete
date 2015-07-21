@@ -10,10 +10,21 @@
 		back = function() {
 			history.shift();
 			appScope.template = history[0].tpl;
-		};
+		},
+		informer = function($mdToast){
+			return function(msg) {
+				$mdToast.show(
+				  $mdToast.simple()
+					.content(msg)
+					.position('top left')
+					.hideDelay(3000)
+				);
+			}
+		},
+		inform = null;
 		
-	mobilete.controller('AppController', ['$scope', 'Settings', 'Api',
-						function($scope, Settings, Api) {
+	mobilete.controller('AppController', ['$scope', '$mdToast', 'Settings', 'Api',
+						function($scope, $mdToast, Settings, Api) {
 		appScope = $scope;
 		if (Settings.get().sid) {
 			Api.session(Settings.get().sid).then(
@@ -21,6 +32,7 @@
 					goTo('categories.html')
 				},
 				function (){
+					inform('Expired Session');
 					Settings.set('sid', null);
 					goTo('login.html');
 			});
@@ -29,6 +41,7 @@
 		}
 		$scope.goTo = goTo;
 		$scope.back = back;
+		inform = informer($mdToast);
 	}]);
 	
 	mobilete.controller('SettingsController', ['$scope', 'Settings', 'Api',
@@ -41,11 +54,14 @@
 			$scope.saving = true;
 			Api.setApi(settings.api).then(
 				function() {
+					inform('API info saved');
 					Settings.set('api-url', settings.api);
 					$scope.form.api.$error.invalid = false;
 					back();
 				},
 				function() {
+					$scope.saving = false;
+					inform('invalid or not working API');
 					$scope.form.api.$error.invalid = true;
 				}
 			);
@@ -66,9 +82,12 @@
 					goTo('categories.html');
 				},
 				function (reason) {
+					$scope.saving = false;
 					if (reason.id === 'invalid-api') {
+						inform('Invalid or not working API');
 						$scope.form.user.$error.unavailable = true;
 					} else {
+						inform('Wrong user/pass');
 						$scope.form.user.$error.invalid = true;
 						$scope.form.password.$error.invalid = true;
 					}
@@ -115,7 +134,7 @@
 		};
 		
 		$scope.markAsReaded = function(id, event){
-			console.log('swipe');
+			inform('Marked as readed');
 			Api.markAsReaded(id);
 			angular.element(event.target).removeClass('unread');
 			angular.element(event.target).addClass('read');

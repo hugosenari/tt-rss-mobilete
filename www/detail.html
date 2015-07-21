@@ -1,7 +1,7 @@
 <md-content ng-controller="ArticleController">
     <md-subheader class="md-primary">
       <!--<img ng-src="{{iconPath(article.id)}}" class="thumb" alt="{{article.title}}"  ng-if="feed.has_icon">-->
-      <a ng-href="article.link">{{article.title}}</a>
+      <a ng-href="{{article.link}}">{{article.title}}</a>
       <p ng-bind-html="article.excerpt"></p>
     </md-subheader>
     <br/>

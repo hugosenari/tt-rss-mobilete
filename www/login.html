@@ -1,27 +1,28 @@
 <md-content ng-controller="LoginController">
   <md-subheader class="md-primary">Login</md-subheader>
   <form class="login-form" name="form">
-    <md-input-container>
-      <label>Login</label>
-      <input required name="user" ng-model="login.user" type="text">
-      <div ng-messages="form.user.$error">
-        <div ng-message="required">This is required.</div>
-        <div ng-message="invalid">Wrong user</div>
-        <div ng-message="unavailable">The service is down/wrong.</div>
+    <md-content layout-padding>
+      <md-input-container>
+        <label>Login</label>
+        <input required name="user" ng-model="login.user" type="text">
+        <div ng-messages="form.user.$error">
+          <div ng-message="required">This is required.</div>
+          <div ng-message="invalid">Wrong user</div>
+          <div ng-message="unavailable">The service is down/wrong.</div>
+        </div>
+      </md-input-container>
+      <md-input-container>
+        <label>Password</label>
+        <input type="password" required name="password" ng-model="login.password">
+        <div ng-messages="form.password.$error">
+          <div ng-message="required">This is required.</div>
+          <div ng-message="invalid">Wrong pass</div>
+        </div>
+      </md-input-container>     
+      <div>
+          <md-button class="md-raised md-primary" ng-click="doLogin(login)"  ng-show="!saving">Login</md-button>    
       </div>
-    </md-input-container>
-    <md-input-container>
-      <label>Password</label>
-      <input type="password" required name="password" ng-model="login.password">
-      <div ng-messages="form.password.$error">
-        <div ng-message="required">This is required.</div>
-        <div ng-message="invalid">Wrong pass</div>
-      </div>
-    </md-input-container>     
-    <div>
-        <md-button class="md-raised md-primary" ng-click="doLogin(login)"  ng-show="!saving">Login</md-button>
-        
-    </div>
+    </md-content>
     <md-content layout-align="center center" layout>
         <md-progress-circular md-mode="indeterminate" ng-show="saving"></md-progress-circular>
     </md-content>

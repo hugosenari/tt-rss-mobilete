@@ -47,15 +47,17 @@
 	mobilete.controller('SettingsController', ['$scope', 'Settings', 'Api',
 						function($scope, Settings, Api) {
 		$scope.settings = {
-			api: Settings.get()['api-url']
+			api: Settings.get()['api-url'],
+			unread_only: Settings.get()['unread_only']
 		};
 		
 		$scope.doSave = function(settings) {
 			$scope.saving = true;
 			Api.setApi(settings.api).then(
 				function() {
-					inform('API info saved');
+					inform('Settings saved');
 					Settings.set('api-url', settings.api);
+					Settings.set('unread_only', settings.unread_only);
 					$scope.form.api.$error.invalid = false;
 					back();
 				},
@@ -132,8 +134,11 @@
 		$scope.feed = history[0].feed;
 		$scope.iconPath = Settings.icon;
 		$scope.items = false;
+		$scope.unread_only = Settings.get()['unread_only'] ? 'unread_only' : 'read_and_unread'
 		var items = []
-		Api.feed(history[0].feed.id).then(function(data){
+		Api.feed(history[0].feed.id,
+				 Settings.get()['unread_only']
+		).then(function(data){
 			$scope.items = data.content;
 			items = data.content;
 			if (!data.content.length){
@@ -144,17 +149,18 @@
 			goTo('detail.html', {article: item, list:items, index: index});
 		};
 		
-		$scope.markAsReaded = function(id, event){
+		function markAsRead(id, target) {
+			
+		}
+		
+		$scope.markAsReaded = function(article, event){
 			inform('Marked as readed');
-			Api.markAsReaded(id);
-			angular.element(event.target).removeClass('unread');
-			angular.element(event.target).addClass('read');
+			article.unread = false;
+			Api.markAsReaded(article.id);
 		}
 		$scope.openInOtherTab = function(article, event) {
 			inform('Open in new tab');
 			Api.markAsReaded(article.id);
-			angular.element(event.target).removeClass('unread');
-			angular.element(event.target).addClass('read');
 			window.open(article.link, '_'+Math.random());
 		}
 	}]);

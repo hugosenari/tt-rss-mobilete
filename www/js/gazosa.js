@@ -90,9 +90,13 @@
 				return defer(api, angular.extend({}, dataRequest, {
 					op:'getFeeds', cat_id: id}));
 			},
-			feed: function(id){
+			feed: function(id, unread_only){
+				unread_only = unread_only || false;
 				return defer(api, angular.extend({}, dataRequest, {
-					op:'getHeadlines', feed_id: id}));
+					op:'getHeadlines',
+					feed_id: id,
+					view_mode: unread_only? 'unread': 'all_articles'
+				}));
 			},
 			markAsReaded: function(id){
 				return defer(api, angular.extend({}, dataRequest, {

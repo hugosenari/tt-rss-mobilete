@@ -10,6 +10,7 @@
 			'icons_url': 'feed-icons',
 			'daemon_is_running': false,
 			'num_feeds': 0,
+			'unread_only': false,
 		}, localStorage.getItem('settings'));
 		
 		function getSettings() {

@@ -1,20 +1,24 @@
 <md-content ng-controller="SettingsController">
     <md-subheader class="md-primary">Settings</md-subheader>
-    <form class="settings-form" name="form">
-      <md-input-container>
-        <label>Api URL</label>
-        <input required name="api" ng-model="settings.api" ng-value="settings.api" type="text"/>
-        <div ng-messages="form.api.$error">
-          <div ng-message="required">This is required.</div>
-          <div ng-message="invalid">This is invalid or unavailable api.</div>
+    <md-content layout-padding>
+        <form class="settings-form" name="form">
+            <md-switch ng-model="settings.unread_only" aria-label="Hide read items">
+                List only unread items
+            </md-switch>
+            <md-input-container>
+                <label>Api URL</label>
+                <input required name="api" ng-model="settings.api" ng-value="settings.api" type="text"/>
+                <div ng-messages="form.api.$error">
+                    <div ng-message="required">This is required.</div>
+                    <div ng-message="invalid">This is invalid or unavailable api.</div>
+                </div>
+            </md-input-container>
+        </md-content>
+        <md-content layout-align="center center" layout>
+            <md-progress-circular md-mode="indeterminate" ng-show="saving"></md-progress-circular>
+        </md-content>
+        <div>
+            <md-button class="md-raised md-primary" ng-click="doSave(settings)" ng-show="!saving">Save</md-button>
         </div>
-      </md-input-container>
-    <md-content layout-align="center center" layout>
-      <md-progress-circular md-mode="indeterminate" ng-show="saving"></md-progress-circular>
-    </md-content>
-      <div>
-        
-        <md-button class="md-raised md-primary" ng-click="doSave(settings)" ng-show="!saving">Save</md-button>
-      </div>
     </form>
 </ons-page>

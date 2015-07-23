@@ -37,5 +37,3 @@ I can also treat you and help you accept world as it is or exploit the Matrix to
 # NOTES
 - I liked AngularJS (except for ['DI magic'](https://www.google.com.br/search?q=meme+why));
 - I was expecting more from Angular Material;
-- For the sake of GOD fork and make it one better.
-- 

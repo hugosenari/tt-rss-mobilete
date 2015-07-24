@@ -21,6 +21,8 @@ Any with the [open source criteria](http://opensource.org/osd).
 # Install
 Clone inside your Tiny Tiny Rss server and open subdir in your browser.
 
+I create two a cartridge for openshift [TT-RSS-Mobile-Cart](https://github.com/hugosenari/tt-rss-mobilete-cart) and [g2ttrss-mobile-cart](https://github.com/hugosenari/g2ttrss-mobile-cart) to help installation.
+
 # TO DO
 * More settings;
 * Better interface;

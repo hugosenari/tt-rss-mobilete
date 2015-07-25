@@ -238,21 +238,32 @@
 			$routeParams.category + '/' +
 			$routeParams.feed
 		
-		
+		var list = appScope.list || [],
+			index = appScope.index || 1;
+			
 		$scope.openOtherItem= function(to){
-			var list = appScope.list || [],
-				index = (appScope.index || 0)  + to;
-			if (index >= 0 && index <= list.length-1) {
-				appScope.article = list[index];
-				appScope.index = index;
+			var newIndex = index  + to;
+			if (newIndex >= 0 && newIndex <= list.length-1) {
+				appScope.article = list[newIndex];
+				appScope.index = newIndex;
 				$window.location.href = '#/feeds/' +
 					$routeParams.category + '/' +
 					$routeParams.feed + '/'+
-					list[index].id;
+					list[newIndex].id;
 			} else {
 				inform('Nothing this side');
 			}
 		};
 		
+		$scope.hasNext = false;
+		$scope.hasPrev = false;
+		if (list && list.length > 0) {
+			if (index - 1 >= 0 && index -1 <= list.length-1) {
+				$scope.hasNext = true;
+			}
+			if (index + 1 >= 0 && index +1 <= list.length-1) {
+				$scope.hasPrev = true;
+			}
+		}
 	}]);
 })();

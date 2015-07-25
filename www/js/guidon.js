@@ -219,7 +219,7 @@
 	mobilete.controller('ArticleController',
 						['$scope', '$routeParams', '$window', 'Api',
 						function($scope, $routeParams, $window, Api) {
-		$scope.article = appScope.article ? appScope.article : {};
+		$scope.article = appScope.article || {};
 		$scope.items = null
 		
 		Api.article($routeParams.article).then(function(data){
@@ -253,5 +253,6 @@
 				inform('Nothing this side');
 			}
 		};
+		
 	}]);
 })();

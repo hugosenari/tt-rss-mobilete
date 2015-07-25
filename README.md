@@ -22,7 +22,6 @@ Any with the [open source criteria](http://opensource.org/osd).
 Clone inside your Tiny Tiny Rss server and open subdir in your browser.
 
 # TO DO
-* Add routes (permalink, back, forward...);
 * More settings;
 * Better interface;
 * And other suggestions from [ttrss-mobile](https://github.com/mboinet/ttrss-mobile/issues).

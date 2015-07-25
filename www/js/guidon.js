@@ -42,6 +42,32 @@
 		$scope.goTo = goTo;
 		$scope.back = back;
 		inform = informer($mdToast);
+
+		$rootScope.$on('$routeChangeError', function($event, current, previous, rejection){
+		  alert('$routeChangeError! rejection: "' + rejection + '"');
+		});
+	}]).config(['$routeProvider', function($routeProvider){
+		$routeProvider
+			.when('/', {
+				redirectTo: function() {
+					return '/login'
+				}
+			})
+			.when('/settings', {
+				template: 'settings.html'
+			})
+			.when('/login', {
+				template: 'login.html'
+			})
+			.when('/feeds', {
+				template: 'categories.html'
+			})
+			.when('/feeds/:id', {
+				template: 'items.html'
+			})
+			.when('/feeds/:id/:article', {
+				template: 'detail.html'
+			});
 	}]);
 	
 	mobilete.controller('SettingsController', ['$scope', 'Settings', 'Api',

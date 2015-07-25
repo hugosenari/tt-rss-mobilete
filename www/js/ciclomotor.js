@@ -2,7 +2,7 @@
 	'use strict';
     var mobilete = angular.module('ttRssMobilete');
 	
-	mobilete.factory('Settings', ['$http', function($http) {
+	mobilete.factory('Settings', ['$http', '$q', function($http, $q) {
 		var settings = angular.extend({
 			'api-url': '/api/',
 			'sid':  null,
@@ -26,10 +26,19 @@
 			return settings['api-url'] + '../' + settings['icons_dir'] + '/' + id + '.ico';
 		}
 
+		function hasToken() {
+			if (getSettings().sid) {
+				return $q.reject('Usuário não logado');
+			} else {
+				return $q.defer().resolve('Usuário logado');
+			}
+		}
+		
 		return {
 			get: getSettings,
 			set: setSetting,
-			icon: getIconUri
+			icon: getIconUri,
+			token: checkToken
 		}
 	}]);
 })();

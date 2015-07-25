@@ -14,45 +14,65 @@
 		},
 		inform = null;
 		
-		mobilete.config(['$routeProvider',
-						 function($routeProvider, Settings){
-			$routeProvider
-				.when('/settings', {
-					controller: "SettingsController",
-					templateUrl: 'settings.html'
-				})
-				.when('/login', {
-					controller: 'LoginController',
-					templateUrl: 'login.html'
-				})
-				.when('/feeds', {
-					controller: 'CategoryController',
-					templateUrl: 'categories.html'
-				})
-				.when('/feeds/:category/:feed', {
-					controller: 'FeedController',
-					templateUrl: 'items.html'
-				})
-				.when('/feeds/:category/:feed/:article', {
-					controller: 'ArticleController',
-					templateUrl: 'detail.html'
-				});
-		}]);
+	mobilete.config(['$routeProvider', function($routeProvider){
+		var resolver = {
+			token: ['$q', 'Settings', 'Api', function ($q, Settings, Api) {
+				var defer = $q.defer();
+				if (Settings.get().sid){
+					Api.session(Settings.get().sid).then(
+						function () {
+							defer.resolve('valid-sid');
+						},
+						function (){
+							inform('Expired Session');
+							defer.reject('invalid-sid');
+							Settings.set('sid', null);
+					});
+				} else {
+					defer.reject('invalid-sid');
+				}
+				return defer.promise;
+			}]
+		}
+		
+		$routeProvider
+			.when('/', {
+				redirectTo: "/feeds",
+			})
+			.when('/settings', {
+				controller: "SettingsController",
+				templateUrl: 'settings.html'
+			})
+			.when('/login', {
+				controller: 'LoginController',
+				templateUrl: 'login.html'
+			})
+			.when('/feeds', {
+				controller: 'CategoryController',
+				templateUrl: 'categories.html',
+				resolve: angular.extend({}, resolver)
+			})
+			.when('/feeds/:category/:feed', {
+				controller: 'FeedController',
+				templateUrl: 'items.html',
+				resolve: angular.extend({}, resolver)
+			})
+			.when('/feeds/:category/:feed/:article', {
+				controller: 'ArticleController',
+				templateUrl: 'detail.html',
+				resolve: angular.extend({}, resolver)
+			});
+	}]);
 		
 	mobilete.controller('AppController',
 						['$scope', '$mdToast', '$window', 'Settings', 'Api',
 						function($scope, $mdToast, $window, Settings, Api) {
 		appScope = $scope;
-		if (Settings.get().sid) {
-			Api.session(Settings.get().sid).catch(
-				function (){
-					inform('Expired Session');
-					Settings.set('sid', null);
-					$window.location.href = '#/login';
-			});
-		} else {
-			$window.location.href = '#/login';
-		}
+		$scope.$on('$routeChangeError', function (event, current, prev, rejection) {
+			if (rejection == 'invalid-sid') {
+				$window.location.href = '#/login';
+			}
+		});
 		$scope.back = null;
 		inform = informer($mdToast);
 	}]);
@@ -82,6 +102,7 @@
 				}
 			);
 		}
+		appScope.back = '#/';
 	}]);
 	
 	mobilete.controller('LoginController',
@@ -111,6 +132,8 @@
 				}
 			);
 		}
+		
+		appScope.back = null;
 	}]);
 	
 	mobilete.controller('CategoryController',
@@ -124,6 +147,8 @@
 				}
 			}
 		);
+		
+		appScope.back = null;
 	}]);
 	
 	mobilete.controller('CategoryItemController',
@@ -167,6 +192,8 @@
 				}
 			});			
 		}
+		
+		appScope.back = '#/feeds/';
 
 		var items = []
 		Api.feed($routeParams.feed, Settings.get()['unread_only'])
@@ -218,7 +245,12 @@
 			$scope.items = data.content;
 			Api.markAsReaded($routeParams.article);
 		});
-
+		
+		appScope.back = '#/feeds/' +
+			$routeParams.category + '/' +
+			$routeParams.feed
+		
+		
 		$scope.openOtherItem= function(to){
 			var list = appScope.list || [],
 				index = (appScope.index || 0)  + to;

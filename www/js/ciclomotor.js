@@ -2,6 +2,12 @@
 	'use strict';
     var mobilete = angular.module('ttRssMobilete');
 	
+	mobilete.factory('CheckToken', ['$q', function($q) {
+		this.$get = [function() {
+		  return new Array();
+		}];
+	}]);
+	
 	mobilete.factory('Settings', ['$http', '$q', function($http, $q) {
 		var settings = angular.extend({
 			'api-url': '/api/',

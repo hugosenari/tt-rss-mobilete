@@ -29,13 +29,13 @@
     <body ng-controller="AppController">
         <md-toolbar>
             <div class="md-toolbar-tools">
-<!--                <md-button
+                <md-button
                            class="md-icon-button back-button"
                            aria-label="Back"
-                           ng-click="back()"
-                           ng-if="template != 'categories.html' && template != 'login.html'">
+                           ng-href='{{back}}'
+                           ng-if="back">
                     <i class="material-icons">arrow_back</i>
-                </md-button>-->
+                </md-button>
                 <span flex></span>
                 <h4>
                     <span>TTRSS-Mobilete</span>

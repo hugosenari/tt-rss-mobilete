@@ -29,13 +29,13 @@
     <body ng-controller="AppController">
         <md-toolbar>
             <div class="md-toolbar-tools">
-                <md-button
+<!--                <md-button
                            class="md-icon-button back-button"
                            aria-label="Back"
                            ng-click="back()"
                            ng-if="template != 'categories.html' && template != 'login.html'">
                     <i class="material-icons">arrow_back</i>
-                </md-button>
+                </md-button>-->
                 <span flex></span>
                 <h4>
                     <span>TTRSS-Mobilete</span>
@@ -44,15 +44,13 @@
                 <md-button
                            class="md-icon-button"
                            aria-label="Settings"
-                           ng-click="goTo('settings.html')"
-                           ng-if="template != 'settings.html'">
+                           ng-if="template != 'settings.html'"
+                           ng-href='#/settings'>
                     <i class="material-icons">settings</i>
                 </md-button>
             </div>
         </md-toolbar>
-        <ng-view>
-            <div class="slide-animate" ng-include="template"></div>
-        </ng-view>
+        <ng-view></ng-view>
       <script type="text/javascript" src="js/ignicao.js"></script>
     </body>
 </html>

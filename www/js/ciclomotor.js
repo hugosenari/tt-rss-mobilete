@@ -25,20 +25,11 @@
 		function getIconUri(id) {
 			return settings['api-url'] + '../' + settings['icons_dir'] + '/' + id + '.ico';
 		}
-
-		function hasToken() {
-			if (getSettings().sid) {
-				return $q.reject('Usuário não logado');
-			} else {
-				return $q.defer().resolve('Usuário logado');
-			}
-		}
 		
 		return {
 			get: getSettings,
 			set: setSetting,
-			icon: getIconUri,
-			token: checkToken
+			icon: getIconUri
 		}
 	}]);
 })();

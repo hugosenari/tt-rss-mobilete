@@ -1,4 +1,4 @@
-<md-content ng-controller="CategoryController">
+<md-content>
     <md-subheader class="md-primary">Categories</md-subheader>
     <md-content layout-align="center center" layout>
       <md-progress-circular md-mode="indeterminate" ng-show="!categories"></md-progress-circular>
@@ -21,7 +21,7 @@
               <md-list-item
                              ng-class="(item.unread ? 'md-3-line unread':'md-3-line read')+($even ? ' even' : ' odd')"
                              ng-repeat="item in items"
-                             ng-click="openItem(item)">
+                             ng-click="openItem(item, category)">
                 <img ng-src="{{iconPath(item.id)}}" class="thumb" alt="{{item.title}}"  ng-if="item.has_icon">
                 <div class="md-list-item-text">
                   <p>

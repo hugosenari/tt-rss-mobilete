@@ -4,7 +4,7 @@
       ({{feed.unread}}) {{feed.title}}
     </md-subheader>
     <md-content layout-align="center center" layout>
-      <md-progress-circular md-mode="indeterminate" ng-show="!items"></md-progress-circular>
+      <md-progress-circular md-mode="indeterminate" ng-show="!items || !feed"></md-progress-circular>
     </md-content>
     <md-list ng-show="items" ng-class="unread_only">
       <md-list-item

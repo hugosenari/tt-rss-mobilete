@@ -6,8 +6,18 @@
   font-size: 32px;
 }
 
+.article-content{
+  padding-bottom: 60px;
+}
+
+.nav-buttons {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
 .nav-buttons .material-icons{
-  font-size: 46px;
+  font-size: 30px;
   margin-top: 4px;
 }
 
@@ -27,4 +37,8 @@ md-list-item.md-2-line .md-list-item-text h3, md-list-item.md-2-line > .md-no-st
 
 .article-content img{
   max-width: 100%;
+}
+
+.md-content {
+  transition: all 400ms ease-out 50ms;
 }

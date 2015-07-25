@@ -30,9 +30,11 @@
 					templateUrl: 'categories.html'
 				})
 				.when('/feeds/:category/:feed', {
+					controller: 'FeedController',
 					templateUrl: 'items.html'
 				})
 				.when('/feeds/:category/:feed/:article', {
+					controller: 'ArticleController',
 					templateUrl: 'detail.html'
 				});
 		}]);

@@ -17,21 +17,7 @@
 	mobilete.config(['$routeProvider', function($routeProvider){
 		var resolver = {
 			token: ['$q', 'Settings', 'Api', function ($q, Settings, Api) {
-				var defer = $q.defer();
-				if (Settings.get().sid){
-					Api.session(Settings.get().sid).then(
-						function () {
-							defer.resolve('valid-sid');
-						},
-						function (){
-							inform('Expired Session');
-							defer.reject('invalid-sid');
-							Settings.set('sid', null);
-					});
-				} else {
-					defer.reject('invalid-sid');
-				}
-				return defer.promise;
+				return Api.session(Settings.get().sid);
 			}]
 		}
 		
@@ -69,7 +55,9 @@
 						function($scope, $mdToast, $window, Settings, Api) {
 		appScope = $scope;
 		$scope.$on('$routeChangeError', function (event, current, prev, rejection) {
-			if (rejection == 'invalid-sid') {
+			if (rejection && rejection.id == 'invalid-sid') {
+				Settings.set('sid', null);
+				inform('Unknow token');
 				$window.location.href = '#/login';
 			}
 		});

@@ -1,8 +1,14 @@
 .md-toolbar-tools .material-icons{
   font-size: 42px;
 }
-.md-3-line  .material-icons{
+
+.md-3-line .material-icons{
   font-size: 32px;
+}
+
+.nav-buttons .material-icons{
+  font-size: 46px;
+  margin-top: 4px;
 }
 
 .thumb {

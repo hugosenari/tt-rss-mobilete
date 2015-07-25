@@ -8,7 +8,14 @@
     <md-content layout-align="center center" layout>
       <md-progress-circular md-mode="indeterminate" ng-show="!items"></md-progress-circular>
     </md-content>
-    <md-content layout-padding class="article-content">
-      <div ng-repeat="item in items" ng-bind-html="item.content"></div>
-    </md-content>
+    <div class="article-content" ng-repeat="item in items" ng-bind-html="item.content"></div>
+    <br/>
+    <div layout-align="space-between end" layout="row" class="nav-buttons">
+      <md-button class="md-primary md-fab" ng-click="openOtherItem(+1)">
+        <i class="material-icons">skip_previous</i>
+      </md-button>
+      <md-button class="md-primary md-fab" ng-click="openOtherItem(-1)">
+        <i class="material-icons">skip_next</i>
+      </md-button>
+    </div>
 </md-content>

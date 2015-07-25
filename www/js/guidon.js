@@ -16,7 +16,7 @@
 		
 	mobilete.config(['$routeProvider', function($routeProvider){
 		var resolver = {
-			token: ['$q', 'Settings', 'Api', function ($q, Settings, Api) {
+			token: ['Settings', 'Api', function (Settings, Api) {
 				return Api.session(Settings.get().sid);
 			}]
 		}

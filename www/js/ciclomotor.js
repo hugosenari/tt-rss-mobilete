@@ -2,7 +2,13 @@
 	'use strict';
     var mobilete = angular.module('ttRssMobilete');
 	
-	mobilete.factory('Settings', ['$http', function($http) {
+	mobilete.factory('CheckToken', ['$q', function($q) {
+		this.$get = [function() {
+		  return new Array();
+		}];
+	}]);
+	
+	mobilete.factory('Settings', ['$http', '$q', function($http, $q) {
 		var settings = angular.extend({
 			'api-url': '/api/',
 			'sid':  null,
@@ -25,7 +31,7 @@
 		function getIconUri(id) {
 			return settings['api-url'] + '../' + settings['icons_dir'] + '/' + id + '.ico';
 		}
-
+		
 		return {
 			get: getSettings,
 			set: setSetting,

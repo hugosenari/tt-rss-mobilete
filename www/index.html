@@ -7,7 +7,9 @@
         <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/angular_material/0.9.4/angular-material.min.css"/>
         <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons"/>
         <link rel="stylesheet" href="./styles/app.css"/>
+        
         <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.2/angular.min.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.2/angular-route.min.js"></script>
         <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.2/angular-animate.min.js"></script>
         <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.2/angular-aria.min.js"></script>
         <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.2/angular-messages.min.js"></script>
@@ -31,8 +33,8 @@
                 <md-button
                            class="md-icon-button back-button"
                            aria-label="Back"
-                           ng-click="back()"
-                           ng-if="template != 'categories.html' && template != 'login.html'">
+                           ng-href='{{back}}'
+                           ng-if="back">
                     <i class="material-icons">arrow_back</i>
                 </md-button>
                 <span flex></span>
@@ -43,15 +45,13 @@
                 <md-button
                            class="md-icon-button"
                            aria-label="Settings"
-                           ng-click="goTo('settings.html')"
-                           ng-if="template != 'settings.html'">
+                           ng-if="template != 'settings.html'"
+                           ng-href='#/settings'>
                     <i class="material-icons">settings</i>
                 </md-button>
             </div>
         </md-toolbar>
-        <ng-view>
-            <div class="slide-animate" ng-include="template"></div>
-        </ng-view>
+        <ng-view layout-fill></ng-view>
       <script type="text/javascript" src="js/ignicao.js"></script>
     </body>
 </html>

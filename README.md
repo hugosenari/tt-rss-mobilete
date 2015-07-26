@@ -24,7 +24,6 @@ Clone inside your Tiny Tiny Rss server and open subdir in your browser.
 I create two a cartridge for openshift [TT-RSS-Mobile-Cart](https://github.com/hugosenari/tt-rss-mobilete-cart) and [g2ttrss-mobile-cart](https://github.com/hugosenari/g2ttrss-mobile-cart) to help installation.
 
 # TO DO
-* Add routes (permalink, back, forward...);
 * More settings;
 * Better interface;
 * And other suggestions from [ttrss-mobile](https://github.com/mboinet/ttrss-mobile/issues).

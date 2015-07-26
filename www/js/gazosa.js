@@ -66,19 +66,23 @@
 			},
 			setApi: function(newApi) {
 				var data = {
-					'op': 'login'
-				},
-					subResult = defer(newApi, data),
+						'op': 'login'
+					},
 					result = $q.defer();
 					
-				subResult.catch(function(reason) {
-					if (reason.id === 'invalid-api') {
-						result.reject(reason);
-					} else {
-						api = newApi;
-						result.resolve(reason);
-					}
-				});
+				if (dataRequest.sid == newApi) {
+					var subResult = defer(newApi, data);
+					subResult.catch(function(reason) {
+						if (reason.id === 'invalid-api') {
+							result.reject(reason);
+						} else {
+							api = newApi;
+							result.resolve(reason);
+						}
+					});					
+				} else {
+					result.resolve('same-api')
+				}
 
 				return result.promise;
 			},

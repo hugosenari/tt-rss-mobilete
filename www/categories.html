@@ -1,27 +1,31 @@
-<md-content ng-controller="CategoryController">
+<md-content>
     <md-subheader class="md-primary">Categories</md-subheader>
+    
     <md-content layout-align="center center" layout>
       <md-progress-circular md-mode="indeterminate" ng-show="!categories"></md-progress-circular>
     </md-content>
+    
     <md-list ng-show="categories">
       <div ng-controller="CategoryItemController" ng-repeat="category in categories | orderBy:'-order_id'">
-          <md-list-item class="md-3-line"
-              ng-click="colapse=category.id">
+        
+          <md-list-item class="md-3-line" ng-click="colapse=''+category.id">
             <div class="md-list-item-text">
               <h3>({{category.unread}}) {{category.title}}</h3>
             </div>
             <i class="material-icons">keyboard_arrow_down</i>
           </md-list-item>
+          
           <md-list ng-show="colapse" class="animate-show">
+            
             <md-content layout-align="center center" layout>
               <md-progress-circular md-mode="indeterminate" ng-show="!items"></md-progress-circular>
             </md-content>
             
             <div ng-show="items">
               <md-list-item
-                             ng-class="(item.unread ? 'md-3-line unread':'md-3-line read')+($even ? ' even' : ' odd')"
+                             ng-class="(item.unread ? 'unread':'read') + ' md-3-line '+ ($even ? 'even' : 'odd')"
                              ng-repeat="item in items"
-                             ng-click="openItem(item)">
+                             ng-click="openItem(item, category)">
                 <img ng-src="{{iconPath(item.id)}}" class="thumb" alt="{{item.title}}"  ng-if="item.has_icon">
                 <div class="md-list-item-text">
                   <p>
@@ -31,8 +35,11 @@
                 <i class="material-icons">arrow_forward</i>
               </md-list-item>
             </div>
+            
           </md-list>
+          
           <md-divider ng-if="!$last"></md-divider>
       </div>
     </md-list>
+    
 </md-content>

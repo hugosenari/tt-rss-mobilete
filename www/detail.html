@@ -12,10 +12,10 @@
       <div class="article-content" ng-repeat="item in items" ng-bind-html="item.content"></div>
     </md-content>
     <div layout-align="space-between end" layout="row" class="nav-buttons">
-      <md-button class="md-fab md-mini md-raised" ng-click="openOtherItem(+1)" ng-if="hasPrev">
+      <md-button class="md-fab md-mini md-raised" ng-click="openOtherItem(-1)" ng-if="hasPrev">
         <i class="material-icons">skip_previous</i>
       </md-button>
-      <md-button class="md-fab md-mini md-raised" ng-click="openOtherItem(-1)" ng-if="hasNext">
+      <md-button class="md-fab md-mini md-raised" ng-click="openOtherItem(+1)" ng-if="hasNext">
         <i class="material-icons">skip_next</i>
       </md-button>
     </div>

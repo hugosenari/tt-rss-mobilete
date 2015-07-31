@@ -9,12 +9,11 @@
     <md-list ng-show="items" ng-class="unread_only">
       <md-list-item
             ng-if="item.unread || !unread_only"
-            ng-class="item.unread ? 'md-3-line unread':'md-3-line read'"
+            ng-class="'md-list-item' + $index + ' md-3-line ' + (item.unread ? 'unread':'read')"
             ng-repeat="item in items"
             ng-click="openItem(item, $index)"
             md-swipe-left="markAsReaded(item, $event)"
             md-swipe-right="openInOtherTab(item, $event)"
-            ng-attr-id="'md-list-item-'+$index"
             >
         <img ng-src="{{iconPath(item.id)}}" class="thumb" alt="{{item.title}}"  ng-if="item.has_icon">
         <div class="md-list-item-text">

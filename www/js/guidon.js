@@ -236,14 +236,13 @@
 		
 		appScope.back = '#/feeds/' +
 			$routeParams.category + '/' +
-			$routeParams.feed;
-
-		appScope.index = appScope.index || 0;
+			$routeParams.feed
 		
-		var list = appScope.list || [];
+		var list = appScope.list || [],
+		index = appScope.index || 0;
 			
 		$scope.openOtherItem= function(to){
-			var newIndex = appScope.index  + to;
+			var newIndex = index + to;
 			if (newIndex >= 0 && newIndex <= list.length-1) {
 				appScope.article = list[newIndex];
 				appScope.index = newIndex;

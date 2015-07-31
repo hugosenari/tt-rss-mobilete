@@ -80,7 +80,7 @@
 				}
 			);
 		}
-		$scope.emit('backTo', '#/');
+		$scope.$emit('backTo', '#/');
 	}]);
 	
 	mobilete.controller('LoginController',
@@ -111,7 +111,7 @@
 			);
 		}
 		
-		$scope.emit('backTo', null);
+		$scope.$emit('backTo', null);
 	}]);
 	
 	mobilete.controller('CategoryController',
@@ -126,7 +126,7 @@
 			}
 		);
 		
-		$scope.emit('backTo', null);
+		$scope.$emit('backTo', null);
 	}]);
 	
 	mobilete.controller('CategoryItemController',
@@ -171,7 +171,7 @@
 			});			
 		}
 		
-		$scope.emit('backTo', '#/feeds/');
+		$scope.$emit('backTo', '#/feeds/');
 
 		var items = []
 		Api.feed($routeParams.feed, Settings.get()['unread_only'])
@@ -224,7 +224,7 @@
 			Api.markAsReaded($routeParams.article);
 		});
 		
-		$scope.emit('backTo', '#/feeds/' +
+		$scope.$emit('backTo', '#/feeds/' +
 			$routeParams.category + '/' +
 			$routeParams.feed);
 		

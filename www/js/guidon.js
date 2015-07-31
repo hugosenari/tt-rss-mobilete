@@ -1,6 +1,6 @@
 (function(){
 	'use strict';
-    var mobilete = angular.module('ttRssMobilete');
+	var mobilete = angular.module('ttRssMobilete');
 		
 	mobilete.config(['$routeProvider', function($routeProvider){
 		var resolver = {
@@ -151,8 +151,8 @@
 	}]);
 	
 	mobilete.controller('FeedController',
-			['$rootScope', '$scope', '$routeParams', '$window', 'Settings', 'Api', 'Inform',
-			function($rootScope, $scope, $routeParams, $window, Settings, Api, Inform) {
+			['$rootScope', '$scope', '$routeParams', '$window', 'hotkeys', 'Settings', 'Api', 'Inform',
+			function($rootScope, $scope, $routeParams, $window, hotkeys, Settings, Api, Inform) {
 		$scope.iconPath = Settings.icon;
 		$scope.items = false;
 		$scope.unread_only = Settings.get()['unread_only'] ? 'unread_only' : 'read_and_unread'
@@ -204,6 +204,75 @@
 			Api.markAsReaded(article.id);
 			window.open(article.link, article.link);
 		}
+		
+		var index = 0;
+		function focusOn(to) {
+			var newIndex = index + to;
+			if (newIndex >= 0 && newIndex <= items.length-1) {
+				angular.element(document.querySelector('#md-list-item-' + index)).removeClass('md-focus');
+				angular.element(document.querySelector('#md-list-item-' + newIndex)).addClass('md-focus');
+				index = newIndex;
+			}
+		}
+		
+		function showFocused() {
+			$window.location.href = '#/feeds/' +
+				$routeParams.category + '/' +
+				$routeParams.feed + '/'+
+				items[index].id;
+		}
+		
+		function markFocusedAsRead() {
+			Inform('Marked as readed');
+			items[index].unread = false;
+			Api.markAsReaded(items[index].id);
+		}
+		
+		function openFocusedInOtherTab() {
+			Inform('Open in new tab/window');
+			Api.markAsReaded(items[index].id);
+			window.open(items[index].link, items[index].link);
+		}
+		
+		if (items && items.length > 0) {
+			hotkeys
+				.bindTo($scope)
+				.add(
+					{
+						combo: 'up',
+						description: 'Focus prev',
+						callback: function() {focusOn(-1);}
+					}
+				)
+				.add(
+					{
+						combo: 'down',
+						description: 'Focus next',
+						callback: function() {focusOn(+1);}
+					}
+				)
+				.add(
+					{
+						combo: 'space',
+						description: 'Show current',
+						callback: showFocused
+					}
+				)
+				.add(
+					{
+						combo: 'r',
+						description: 'Mark as Read',
+						callback: markFocusedAsRead
+					}
+				)
+				.add(
+					{
+						combo: 'o',
+						description: 'Open link',
+						callback: openFocusedInOtherTab
+					}
+				);
+		}
 	}]);
 	
 	mobilete.controller('ArticleController',
@@ -254,23 +323,22 @@
 			if (index + 1 >= 0 && index +1 <= list.length-1) {
 				$scope.hasPrev = true;
 			}
+			hotkeys
+				.bindTo($scope)
+				.add(
+					{
+						combo: 'left',
+						description: 'Show prev',
+						callback: function() {$scope.openOtherItem(+1);} 
+					}
+				)
+				.add(
+					{
+						combo: 'right',
+						description: 'Show next',
+						callback: function() {$scope.openOtherItem(-1);} 
+					}
+				);
 		}
-		
-		hotkeys
-			.bindTo($scope)
-			.add(
-				{
-					combo: 'left',
-					description: 'Show prev',
-					callback: function() {$scope.openOtherItem(+1);} 
-				}
-			)
-			.add(
-				{
-					combo: 'right',
-					description: 'Show next',
-					callback: function() {$scope.openOtherItem(-1);} 
-				}
-			);
 	}]);
 })();

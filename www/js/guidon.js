@@ -175,13 +175,16 @@
 
 		var items = []
 		Api.feed($routeParams.feed, Settings.get()['unread_only'])
-		.then(function(data){
-			$scope.items = data.content;
-			items = data.content;
-			if (!data.content.length){
-				Inform('Empty');
-			}
-		});
+			.then(function(data){
+				$scope.items = data.content;
+				items = data.content;
+				if (!data.content.length){
+					Inform('Empty');
+				} else {
+					bindShortcuts();
+					focusOn(0);
+				}
+			});
 		
 		$scope.openItem= function(item, index){
 			$rootScope.article = item;
@@ -234,7 +237,7 @@
 			window.open(items[index].link, items[index].link);
 		}
 		
-		if (items && items.length > 0) {
+		function bindShortcuts() {
 			hotkeys
 				.bindTo($scope)
 				.add(

@@ -1,11 +1,16 @@
 (function(){
 	'use strict';
-    var mobilete = angular.module('ttRssMobilete');
-	
-	mobilete.factory('CheckToken', ['$q', function($q) {
-		this.$get = [function() {
-		  return new Array();
-		}];
+	var mobilete = angular.module('ttRssMobilete');
+
+	mobilete.factory('Inform', ['$mdToast', function($mdToast) {
+		return function(msg) {
+			$mdToast.show(
+			  $mdToast.simple()
+				.content(msg)
+				.position('top left')
+				.hideDelay(3000)
+			);
+		}
 	}]);
 	
 	mobilete.factory('Settings', ['$http', '$q', function($http, $q) {

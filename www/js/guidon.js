@@ -1,18 +1,6 @@
 (function(){
 	'use strict';
-    var mobilete = angular.module('ttRssMobilete'),
-		appScope = null,
-		informer = function($mdToast){
-			return function(msg) {
-				$mdToast.show(
-				  $mdToast.simple()
-					.content(msg)
-					.position('top left')
-					.hideDelay(3000)
-				);
-			}
-		},
-		inform = null;
+    var mobilete = angular.module('ttRssMobilete');
 		
 	mobilete.config(['$routeProvider', function($routeProvider){
 		var resolver = {
@@ -51,23 +39,25 @@
 	}]);
 		
 	mobilete.controller('AppController',
-						['$scope', '$mdToast', '$window', 'Settings', 'Api',
-						function($scope, $mdToast, $window, Settings, Api) {
-		appScope = $scope;
+			['$scope', '$mdToast', '$window', 'Settings', 'Api', 'Inform',
+			function($scope, $mdToast, $window, Settings, Api, Inform) {
 		$scope.$on('$routeChangeError', function (event, current, prev, rejection) {
 			if (rejection && rejection.id == 'invalid-sid') {
 				Settings.set('sid', null);
-				inform('Unknow token');
+				Inform('Unknow token');
 				$window.location.href = '#/login';
 			}
 		});
-		$scope.back = null;
-		inform = informer($mdToast);
+		$scope.$on('backTo', function (event, current, prev) {
+			if (current != prev) {
+				$scope.back = current;
+			}
+		});
 	}]);
 	
 	mobilete.controller('SettingsController',
-						['$scope', '$window', 'Settings', 'Api',
-						function($scope, $window, Settings, Api) {
+			['$scope', '$window', 'Settings', 'Api', 'Inform',
+			function($scope, $window, Settings, Api, Inform) {
 		$scope.settings = {
 			api: Settings.get()['api-url'],
 			unread_only: Settings.get()['unread_only']
@@ -77,7 +67,7 @@
 			$scope.saving = true;
 			Api.setApi(settings.api).then(
 				function() {
-					inform('Settings saved');
+					Inform('Settings saved');
 					Settings.set('api-url', settings.api);
 					Settings.set('unread_only', settings.unread_only);
 					$scope.form.api.$error.invalid = false;
@@ -85,17 +75,17 @@
 				},
 				function() {
 					$scope.saving = false;
-					inform('invalid or not working API');
+					Inform('invalid or not working API');
 					$scope.form.api.$error.invalid = true;
 				}
 			);
 		}
-		appScope.back = '#/';
+		$scope.emit('backTo', '#/');
 	}]);
 	
 	mobilete.controller('LoginController',
-						['$scope', '$window', 'Settings', 'Api',
-						function($scope, $window, Settings, Api) {
+			['$scope', '$window', 'Settings', 'Api', 'Inform',
+			function($scope, $window, Settings, Api, Inform) {
 		$scope.login = {user: '', password: ''};
 		$scope.doLogin = function(login) {
 			$scope.saving = true;
@@ -110,10 +100,10 @@
 				function (reason) {
 					$scope.saving = false;
 					if (reason.id === 'invalid-api') {
-						inform('Invalid or not working API');
+						Inform('Invalid or not working API');
 						$scope.form.user.$error.unavailable = true;
 					} else {
-						inform('Wrong user/pass');
+						Inform('Wrong user/pass');
 						$scope.form.user.$error.invalid = true;
 						$scope.form.password.$error.invalid = true;
 					}
@@ -121,27 +111,27 @@
 			);
 		}
 		
-		appScope.back = null;
+		$scope.emit('backTo', null);
 	}]);
 	
 	mobilete.controller('CategoryController',
-						['$scope', 'Api',
-						 function($scope, Api) {
+			['$scope', 'Api', 'Inform',
+			 function($scope, Api, Inform) {
 		Api.categories().then(
 			function (data) {
 				$scope.categories = data.content;
 				if (!data.content.length){
-					inform('Empty');
+					Inform('Empty');
 				}
 			}
 		);
 		
-		appScope.back = null;
+		$scope.emit('backTo', null);
 	}]);
 	
 	mobilete.controller('CategoryItemController',
-						['$scope', '$window', 'Settings', 'Api',
-						function($scope, $window, Settings, Api) {
+			['$rootScope', '$scope', '$window', 'Settings', 'Api', 'Inform',
+			function($rootScope, $scope, $window, Settings, Api, Inform) {
 		$scope.colapse = false;
 		$scope.iconPath = Settings.icon;
 		$scope.$watch('colapse', function (value) {
@@ -149,26 +139,26 @@
 				Api.feeds(value).then(function(data){
 					$scope.items = data.content;
 					if (!data.content.length){
-						inform('Empty');
+						Inform('Empty');
 					}
 				});
 			}
 		});
 		$scope.openItem= function(item, category){
-			appScope.feed = item;
+			$rootScope.feed = item;
 			$window.location.href = '#/feeds/' + category.id + '/'+ item.id;
 		};
 	}]);
 	
 	mobilete.controller('FeedController',
-						['$scope', '$routeParams', '$window', 'Settings', 'Api',
-						function($scope, $routeParams, $window, Settings, Api) {
+			['$rootScope', '$scope', '$routeParams', '$window', 'Settings', 'Api', 'Inform',
+			function($rootScope, $scope, $routeParams, $window, Settings, Api, Inform) {
 		$scope.iconPath = Settings.icon;
 		$scope.items = false;
 		$scope.unread_only = Settings.get()['unread_only'] ? 'unread_only' : 'read_and_unread'
 		
-		if (appScope.feed) {
-			$scope.feed = appScope.feed;
+		if ($rootScope.feed) {
+			$scope.feed = $rootScope.feed;
 		} else {
 			Api.feeds($routeParams.category).then(function(data){
 				for(var i in data.content) {
@@ -181,7 +171,7 @@
 			});			
 		}
 		
-		appScope.back = '#/feeds/';
+		$scope.emit('backTo', '#/feeds/');
 
 		var items = []
 		Api.feed($routeParams.feed, Settings.get()['unread_only'])
@@ -189,14 +179,14 @@
 			$scope.items = data.content;
 			items = data.content;
 			if (!data.content.length){
-				inform('Empty');
+				Inform('Empty');
 			}
 		});
 		
 		$scope.openItem= function(item, index){
-			appScope.article = item;
-			appScope.index = index;
-			appScope.list = items;
+			$rootScope.article = item;
+			$rootScope.index = index;
+			$rootScope.list = items;
 			$window.location.href = '#/feeds/' +
 				$routeParams.category + '/' +
 				$routeParams.feed + '/'+
@@ -204,22 +194,22 @@
 		};
 		
 		$scope.markAsReaded = function(article, event){
-			inform('Marked as readed');
+			Inform('Marked as readed');
 			article.unread = false;
 			Api.markAsReaded(article.id);
 		}
 		
 		$scope.openInOtherTab = function(article, event) {
-			inform('Open in new tab/window');
+			Inform('Open in new tab/window');
 			Api.markAsReaded(article.id);
 			window.open(article.link, article.link);
 		}
 	}]);
 	
 	mobilete.controller('ArticleController',
-						['$scope', '$routeParams', '$window', 'hotkeys', 'Api',
-						function($scope, $routeParams, $window, hotkeys, Api) {
-		$scope.article = appScope.article || {};
+			['$rootScope', '$scope', '$routeParams', '$window', 'hotkeys', 'Api', 'Inform',
+			function($rootScope, $scope, $routeParams, $window, hotkeys, Api, Inform) {
+		$scope.article = $rootScope.article || {};
 		$scope.items = null
 		
 		Api.article($routeParams.article).then(function(data){
@@ -234,24 +224,24 @@
 			Api.markAsReaded($routeParams.article);
 		});
 		
-		appScope.back = '#/feeds/' +
+		$scope.emit('backTo', '#/feeds/' +
 			$routeParams.category + '/' +
-			$routeParams.feed
+			$routeParams.feed);
 		
-		var list = appScope.list || [],
-		index = appScope.index || 0;
+		var list = $rootScope.list || [],
+		index = $rootScope.index || 0;
 			
 		$scope.openOtherItem= function(to){
 			var newIndex = index + to;
 			if (newIndex >= 0 && newIndex <= list.length-1) {
-				appScope.article = list[newIndex];
-				appScope.index = newIndex;
+				$rootScope.article = list[newIndex];
+				$rootScope.index = newIndex;
 				$window.location.href = '#/feeds/' +
 					$routeParams.category + '/' +
 					$routeParams.feed + '/'+
 					list[newIndex].id;
 			} else {
-				inform('Nothing this side');
+				Inform('Nothing this side');
 			}
 		};
 		

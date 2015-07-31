@@ -257,7 +257,7 @@
 		}
 		
 		hotkeys
-			.bind($scope)
+			.bindTo($scope)
 			.add(
 				{
 					combo: 'left',

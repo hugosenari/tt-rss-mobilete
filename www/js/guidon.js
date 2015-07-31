@@ -81,7 +81,7 @@
 					Settings.set('api-url', settings.api);
 					Settings.set('unread_only', settings.unread_only);
 					$scope.form.api.$error.invalid = false;
-					$window.location.href = '';
+					$window.location.href = '#/';
 				},
 				function() {
 					$scope.saving = false;

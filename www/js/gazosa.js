@@ -66,11 +66,12 @@
 			},
 			setApi: function(newApi) {
 				var data = {
-						'op': 'login'
-					},
-					result = $q.defer();
-					
-				if (dataRequest.sid == newApi) {
+					'op': 'login'
+				},
+				result = $q.defer();
+				if (api == newApi) {
+					result.resolve('same-api');
+				} else {
 					var subResult = defer(newApi, data);
 					subResult.catch(function(reason) {
 						if (reason.id === 'invalid-api') {
@@ -79,9 +80,7 @@
 							api = newApi;
 							result.resolve(reason);
 						}
-					});					
-				} else {
-					result.resolve('same-api')
+					});
 				}
 
 				return result.promise;

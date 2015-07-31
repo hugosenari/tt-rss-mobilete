@@ -239,7 +239,7 @@
 			$routeParams.feed
 		
 		var list = appScope.list || [],
-			index = appScope.index || 1;
+			index = appScope.index || 0;
 			
 		$scope.openOtherItem= function(to){
 			var newIndex = index  + to;

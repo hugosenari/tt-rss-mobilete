@@ -217,8 +217,8 @@
 	}]);
 	
 	mobilete.controller('ArticleController',
-						['$scope', '$routeParams', '$window', 'Api',
-						function($scope, $routeParams, $window, Api) {
+						['$scope', '$routeParams', '$window', 'hotkeys', 'Api',
+						function($scope, $routeParams, $window, hotkeys, Api) {
 		$scope.article = appScope.article || {};
 		$scope.items = null
 		
@@ -265,5 +265,22 @@
 				$scope.hasPrev = true;
 			}
 		}
+		
+		hotkeys
+			.bind($scope)
+			.add(
+				{
+					combo: 'left',
+					description: 'Show prev',
+					callback: function() {$scope.openOtherItem(-1);} 
+				}
+			)
+			.add(
+				{
+					combo: 'right',
+					description: 'Show next',
+					callback: function() {$scope.openOtherItem(+1);} 
+				}
+			);
 	}]);
 })();

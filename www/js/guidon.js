@@ -262,14 +262,14 @@
 				{
 					combo: 'left',
 					description: 'Show prev',
-					callback: function() {$scope.openOtherItem(-1);} 
+					callback: function() {$scope.openOtherItem(+1);} 
 				}
 			)
 			.add(
 				{
 					combo: 'right',
 					description: 'Show next',
-					callback: function() {$scope.openOtherItem(+1);} 
+					callback: function() {$scope.openOtherItem(-1);} 
 				}
 			);
 	}]);

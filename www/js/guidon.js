@@ -246,14 +246,14 @@
 				.bindTo($scope)
 				.add(
 					{
-						combo: 'up',
+						combo: 'ctrl+up',
 						description: 'Focus prev',
 						callback: function() {focusOn(-1);}
 					}
 				)
 				.add(
 					{
-						combo: 'down',
+						combo: 'ctrl+down',
 						description: 'Focus next',
 						callback: function() {focusOn(+1);}
 					}

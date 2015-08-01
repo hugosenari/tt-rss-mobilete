@@ -212,6 +212,7 @@
 		
 		function focusOn(to) {
 			var newIndex = index + to;
+			console.log(to, index, newIndex);
 			if (newIndex >= 0 && newIndex <= items.length-1) {
 				angular.element(
 					document.querySelector('.md-list-item' + index + ' button')

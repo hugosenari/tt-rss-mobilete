@@ -2,7 +2,8 @@
     md-swipe-left="openOtherItem(+1)"
     md-swipe-right="openOtherItem(-1)">
     <md-subheader class="md-primary">
-      <a ng-href="{{article.link}}" target="{{article.link}}">{{article.title}}</a>
+      <p><a ng-href="{{article.link}}" target="{{article.link}}"> {{article.title}}</a></p>
+      <p>{{article.feed_title}}</p>
       <p ng-bind-html="article.excerpt"></p>
     </md-subheader>
     <md-content layout-align="center center" layout>

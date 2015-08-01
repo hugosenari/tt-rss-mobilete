@@ -173,7 +173,9 @@
 		
 		$scope.$emit('backTo', '#/feeds/');
 
-		var items = []
+		var items = [],
+		index = 0;
+		
 		Api.feed($routeParams.feed, Settings.get()['unread_only'])
 			.then(function(data){
 				$scope.items = data.content;
@@ -208,7 +210,6 @@
 			window.open(article.link, article.link);
 		}
 		
-		var index = 0;
 		function focusOn(to) {
 			var newIndex = index + to;
 			if (newIndex >= 0 && newIndex <= items.length-1) {
@@ -223,6 +224,9 @@
 		}
 		
 		function showFocused() {
+			$rootScope.article = items[index];
+			$rootScope.index = index;
+			$rootScope.list = items;
 			$window.location.href = '#/feeds/' +
 				$routeParams.category + '/' +
 				$routeParams.feed + '/'+
@@ -246,14 +250,14 @@
 				.bindTo($scope)
 				.add(
 					{
-						combo: 'ctrl+up',
+						combo: 'right',
 						description: 'Focus prev',
 						callback: function() {focusOn(-1);}
 					}
 				)
 				.add(
 					{
-						combo: 'ctrl+down',
+						combo: 'left',
 						description: 'Focus next',
 						callback: function() {focusOn(+1);}
 					}
@@ -335,14 +339,14 @@
 				.add(
 					{
 						combo: 'left',
-						description: 'Show prev',
+						description: 'Show Prev',
 						callback: function() {$scope.openOtherItem(+1);} 
 					}
 				)
 				.add(
 					{
 						combo: 'right',
-						description: 'Show next',
+						description: 'Show Next',
 						callback: function() {$scope.openOtherItem(-1);} 
 					}
 				);

@@ -234,12 +234,14 @@
 		}
 		
 		function markFocusedAsRead() {
+			focusOn(+1);
 			Inform('Marked as readed');
 			items[index].unread = false;
 			Api.markAsReaded(items[index].id);
 		}
 		
 		function openFocusedInOtherTab() {
+			focusOn(+1);
 			Inform('Open in new tab/window');
 			Api.markAsReaded(items[index].id);
 			window.open(items[index].link, items[index].link);

@@ -330,6 +330,12 @@
 				Inform('Nothing this side');
 			}
 		};
+
+		
+		function openInOtherTab() {
+			Inform('Open in new tab/window');
+			window.open($scope.article.link, $scope.article.link);
+		}
 		
 		$scope.hasNext = false;
 		$scope.hasPrev = false;
@@ -354,6 +360,13 @@
 						combo: 'right',
 						description: 'Show Next',
 						callback: function() {$scope.openOtherItem(-1);} 
+					}
+				)
+				.add(
+					{
+						combo: 'o',
+						description: 'Open link',
+						callback: openInOtherTab
 					}
 				);
 		}

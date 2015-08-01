@@ -212,8 +212,12 @@
 		function focusOn(to) {
 			var newIndex = index + to;
 			if (newIndex >= 0 && newIndex <= items.length-1) {
-				angular.element(document.querySelector('.md-list-item-' + index)).removeClass('md-focus');
-				angular.element(document.querySelector('.md-list-item-' + newIndex)).addClass('md-focus');
+				angular.element(
+					document.querySelector('.md-list-item' + index + ' button')
+				).removeClass('md-focus');
+				angular.element(
+					document.querySelector('.md-list-item' + newIndex + ' button')
+				).addClass('md-focus');
 				index = newIndex;
 			}
 		}

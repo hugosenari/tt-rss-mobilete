@@ -39,8 +39,8 @@
 	}]);
 		
 	mobilete.controller('AppController',
-			['$scope', '$mdToast', '$window', 'Settings', 'Api', 'Inform',
-			function($scope, $mdToast, $window, Settings, Api, Inform) {
+			['$scope', '$mdToast', '$window', 'Settings', 'Api', 'Inform', 'Plugins',
+			function($scope, $mdToast, $window, Settings, Api, Inform, Plugins) {
 		$scope.$on('$routeChangeError', function (event, current, prev, rejection) {
 			if (rejection && rejection.id == 'invalid-sid') {
 				Settings.set('sid', null);
@@ -53,6 +53,7 @@
 				$scope.back = current;
 			}
 		});
+		Plugins.load();
 	}]);
 	
 	mobilete.controller('SettingsController',

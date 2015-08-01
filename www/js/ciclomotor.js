@@ -13,6 +13,19 @@
 		}
 	}]);
 	
+	mobilete.factory('Plugins', ['Settings', function(Settings) {
+		return {
+			load: function () {
+				var plugins = Settings.get('plugins');
+				for (var i in plugins) {
+					angular.element(document).append(
+						'<script type="text/javascript" src="' + plugins[i] + '"></script>'
+					);
+				}
+			}
+		}
+	}]);
+	
 	mobilete.factory('Settings', ['$http', '$q', function($http, $q) {
 		var settings = angular.extend({
 			'api-url': '/api/',
@@ -22,6 +35,7 @@
 			'daemon_is_running': false,
 			'num_feeds': 0,
 			'unread_only': false,
+			'plugins': []
 		}, localStorage.getItem('settings'));
 		
 		function getSettings() {

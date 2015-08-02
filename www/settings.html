@@ -1,9 +1,12 @@
 <md-content>
-    <md-subheader class="md-primary">Settings</md-subheader>
-        <form class="settings-form" name="form">
-            <md-switch ng-model="settings.unread_only" aria-label="Hide read items">
-                List only unread items
-            </md-switch>
+    <md-subheader class="md-primary">
+        Settings
+    </md-subheader>
+    <form class="settings-form" name="form">
+        <md-switch ng-model="settings.unread_only" aria-label="Hide read items">
+            List only unread items
+        </md-switch>
+        <md-content layout-align="left center" layout-padding>
             <md-input-container>
                 <label>Api URL</label>
                 <input required name="api" ng-model="settings.api" ng-value="settings.api" type="text"/>
@@ -12,12 +15,26 @@
                     <div ng-message="invalid">This is invalid or unavailable api.</div>
                 </div>
             </md-input-container>
+            <p>Plugins:</p>
+            <md-content layout-padding layout="row"  ng-repeat="item in settings.plugins">
+                <p>{{item.src}}</p>
+                <md-switch aria-label="Enable" ng-model="item.enabled">Enable</md-switch>
+                <md-switch aria-label="Remove" ng-model="item.removed">Remove</md-switch>
+            </md-content>
+            <md-content layout-padding layout="row">
+                <md-input-container>
+                    <label>New Plugin URL</label>
+                    <input ng-model="newPlugin" type="text"/>
+                </md-input-container>
+                <md-button ng-click="addPlugin(newPlugin)">Add Plugin</md-button>
+            </md-content>
+            
         </md-content>
         <md-content layout-align="center center" layout>
             <md-progress-circular md-mode="indeterminate" ng-show="saving"></md-progress-circular>
         </md-content>
         <div>
-            <md-button class="md-raised md-primary" ng-click="doSave(settings)" ng-show="!saving">Save</md-button>
+            <md-button class="md-raised md-primary" ng-click="save(settings)" ng-show="!saving">Save</md-button>
         </div>
     </form>
-</ons-page>
+</md-content>

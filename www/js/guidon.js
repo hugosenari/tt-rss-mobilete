@@ -60,20 +60,41 @@
 	}]);
 	
 	mobilete.controller('SettingsController',
-			['$scope', '$window', 'Settings', 'Api', 'Inform',
-			function($scope, $window, Settings, Api, Inform) {
+			['$scope', '$window', '$routeParams', 'Settings', 'Api', 'Inform',
+			function($scope, $window, $routeParams, Settings, Api, Inform) {
+		var settings = Settings.get(),
+			plugins_src = $routeParams.plugin || [];
+		if (angular.isString(plugins_src)) {
+			plugins_src = [plugins_src];
+		}
+		
+		for(var i in plugins_src){
+			settings['plugins'] = settings['plugins'].concat([{
+				src: plugins_src[i],
+				enabled: false
+			}]);
+		}
+		
 		$scope.settings = {
-			api: Settings.get()['api-url'],
-			unread_only: Settings.get()['unread_only']
+			api: settings['api-url'],
+			unread_only: settings['unread_only'],
+			plugins: settings['plugins']
 		};
 		
-		$scope.doSave = function(settings) {
+		$scope.save = function(settings) {
 			$scope.saving = true;
 			Api.setApi(settings.api).then(
 				function() {
 					Inform('Settings saved');
 					Settings.set('api-url', settings.api);
 					Settings.set('unread_only', settings.unread_only);
+					var plugins = [];
+					for(var i in settings.plugins){
+						if (!settings.plugins[i].removed) {
+							plugins.push(settings.plugins[i]);
+						}
+					}
+					Settings.set('plugins', plugins);
 					$scope.form.api.$error.invalid = false;
 					$window.location.href = '#/';
 				},
@@ -83,6 +104,17 @@
 					$scope.form.api.$error.invalid = true;
 				}
 			);
+		}
+		
+		$scope.addPlugin = function(newPlugin){
+			if (newPlugin) {
+				plugins_src.push(newPlugin);
+			}
+			var plugins_param = [];
+			for(var i in plugins_src){
+				plugins_param.push('plugin=' + plugins_src[i]);
+			}
+			$window.location.href = '#/settings?' + plugins_param.join('&');
 		}
 		$scope.$emit('backTo', '#/');
 	}]);

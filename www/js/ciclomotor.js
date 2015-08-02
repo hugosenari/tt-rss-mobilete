@@ -18,9 +18,11 @@
 			load: function () {
 				var plugins = Settings.get('plugins');
 				for (var i in plugins) {
-					angular.element(document).append(
-						'<script type="text/javascript" src="' + plugins[i] + '"></script>'
-					);
+					if (plugins[i] && plugins[i].enabled) {
+						angular.element(document).append(
+							'<script type="text/javascript" src="' + plugins[i].src + '"></script>'
+						);
+					}
 				}
 			}
 		}
@@ -35,7 +37,7 @@
 			'daemon_is_running': false,
 			'num_feeds': 0,
 			'unread_only': false,
-			'plugins': []
+			'plugins': [],
 		}, localStorage.getItem('settings'));
 		
 		function getSettings() {

@@ -60,7 +60,6 @@
 	mobilete.factory('Settings', ['$http', '$q', function($http, $q) {
 		var settings = angular.extend({
 			'api-url': '/api/',
-			'sid':  null,
 			'icons_dir': 'feed-icons',
 			'icons_url': 'feed-icons',
 			'daemon_is_running': false,

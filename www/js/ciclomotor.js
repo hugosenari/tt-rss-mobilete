@@ -16,8 +16,20 @@
 	mobilete.factory('Plugins', ['Settings', function(Settings) {
 		var before = [];
 		function addScript(src) {
-			var body = document.getElementsByTagName('body')[0];
-			if (src) {
+			var body = document.getElementsByTagName('body')[0],
+				notLoaded = true;
+			angular.forEach(
+				angular.element(body).children(),
+				function(element){
+					if ((/script/i).exec(element.tagName)) {
+						var this_src = angular.element(element).attr('src');
+						if (src && this_src && src.match(this_src)) {
+							notLoaded = false;
+							return;
+						}
+					}
+			});
+			if (src && notLoaded) {
 				var script = document.createElement('script');
 				script.type = 'text/javascript';
 				script.src = src

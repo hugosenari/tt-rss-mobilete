@@ -57,8 +57,8 @@
 	}]);
 	
 	mobilete.controller('SettingsController',
-			['$scope', '$window', '$routeParams', 'Settings', 'Api', 'Inform',
-			function($scope, $window, $routeParams, Settings, Api, Inform) {
+			['$scope', '$window', '$routeParams', 'Settings', 'Api', 'Inform', 'Plugins',
+			function($scope, $window, $routeParams, Settings, Api, Inform, Plugins) {
 		var settings = Settings.get(),
 			plugins_src = $routeParams.plugin || [];
 		if (angular.isString(plugins_src)) {
@@ -92,6 +92,7 @@
 						}
 					}
 					Settings.set('plugins', plugins);
+					Plugins.load();
 					$scope.form.api.$error.invalid = false;
 					$window.location.href = '#/';
 				},

@@ -4,7 +4,6 @@
     
     injector.invoke(['Plugins', function(Plugins) {
         Plugins.watch('before-show-article', function(args){
-            console.log('chicken');
 			if (args && args.content) {
 				args.content = chickenContent(args.content);
 			}

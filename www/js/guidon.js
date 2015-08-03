@@ -187,8 +187,8 @@
 	}]);
 	
 	mobilete.controller('FeedController',
-			['$rootScope', '$scope', '$routeParams', '$window', 'hotkeys', 'Settings', 'Api', 'Inform',
-			function($rootScope, $scope, $routeParams, $window, hotkeys, Settings, Api, Inform) {
+			['$rootScope', '$scope', '$routeParams', '$window', 'hotkeys', 'Settings', 'Api', 'Inform', 'Plugins',
+			function($rootScope, $scope, $routeParams, $window, hotkeys, Settings, Api, Inform, Plugins) {
 		$scope.iconPath = Settings.icon;
 		$scope.items = false;
 		$scope.unread_only = Settings.get()['unread_only'] ? 'unread_only' : 'read_and_unread'
@@ -214,6 +214,7 @@
 		
 		Api.feed($routeParams.feed, Settings.get()['unread_only'])
 			.then(function(data){
+				data.content = Plugins.apply('before-list-headlines', data.content);
 				$scope.items = data.content;
 				items = data.content;
 				if (!data.content.length){
@@ -325,18 +326,19 @@
 	}]);
 	
 	mobilete.controller('ArticleController',
-			['$rootScope', '$scope', '$routeParams', '$window', 'hotkeys', 'Api', 'Inform',
-			function($rootScope, $scope, $routeParams, $window, hotkeys, Api, Inform) {
+			['$rootScope', '$scope', '$routeParams', '$window', 'hotkeys', 'Api', 'Inform', 'Plugins',
+			function($rootScope, $scope, $routeParams, $window, hotkeys, Api, Inform, Plugins) {
 		$scope.article = $rootScope.article || {};
 		$scope.items = null
 		
 		Api.article($routeParams.article).then(function(data){
 			for (var i in data.content) {
+				data.content[i] = Plugins.apply('before-show-article', data.content[i]);
 				$scope.article = angular.extend({}, $scope.article, data.content[i]);
 				data.content[i].content =
 				(
 				 data.content[i].content||''
-				).replace(/width=/, 'width-change-by-mobilete-rss=');
+				).replace(/width=/, 'width-change-by-mobilete=');
 			}
 			$scope.items = data.content;
 			Api.markAsReaded($routeParams.article);

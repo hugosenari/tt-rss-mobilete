@@ -14,16 +14,45 @@
 	}]);
 	
 	mobilete.factory('Plugins', ['Settings', function(Settings) {
+		var before = [];
+		function addScript(src) {
+			var body = document.getElementsByTagName('body')[0];
+			if (src) {
+				var script = document.createElement('script');
+				script.type = 'text/javascript';
+				script.src = src
+				body.appendChild(script);
+			}
+		}
 		return {
+			addScript: addScript,
 			load: function () {
-				var plugins = Settings.get('plugins');
+				var plugins = Settings.get()['plugins'];
 				for (var i in plugins) {
-					if (plugins[i] && plugins[i].enabled) {
-						angular.element(document).append(
-							'<script type="text/javascript" src="' + plugins[i].src + '"></script>'
-						);
+					if (plugins[i] && plugins[i].enabled && plugins[i].src) {
+						addScript(plugins[i].src);
 					}
 				}
+			},
+			watch: function(match, callback) {
+				if (callback) {
+					before.push(
+						{ match: match, callback:callback }
+					)
+				}
+			},
+			apply: function(name, params){
+				for (var i in before){
+					var item = before[i];
+					if (item.match && name.match(item.match)) {
+						try{
+							params = item.callback(params);
+						} catch(e) {
+							window.console && window.console.log(e);
+						}
+					}
+				}
+				return params;
 			}
 		}
 	}]);
@@ -37,7 +66,9 @@
 			'daemon_is_running': false,
 			'num_feeds': 0,
 			'unread_only': false,
-			'plugins': [],
+			'plugins': [
+				{src: 'plugins/reddit.js'}
+			],
 		}, localStorage.getItem('settings'));
 		
 		function getSettings() {

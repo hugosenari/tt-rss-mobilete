@@ -66,7 +66,8 @@
 			'num_feeds': 0,
 			'unread_only': false,
 			'plugins': [
-				{src: 'plugins/reddit.js'}
+				{src: 'plugins/reddit.js'},
+				{src: 'plugins/chicken.js'}
 			],
 		}, localStorage.getItem('settings'));
 		

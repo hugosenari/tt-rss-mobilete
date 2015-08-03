@@ -42,3 +42,7 @@ md-list-item.md-2-line .md-list-item-text h3, md-list-item.md-2-line > .md-no-st
 .md-content {
   transition: all 400ms ease-out 50ms;
 }
+
+pre.chicken {
+  font: 2px/1px monospace;
+}

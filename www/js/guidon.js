@@ -35,9 +35,6 @@
 				controller: 'ArticleController',
 				templateUrl: 'detail.html',
 				resolve: angular.extend({}, resolver)
-			})
-			.when('/chicken', {
-				templateUrl: 'chicken.html'
 			});
 	}]);
 		

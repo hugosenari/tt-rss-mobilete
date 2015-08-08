@@ -54,7 +54,8 @@
 
 	
 	function getImagurIframe(path){
-		var id = path.replace(/https?:\/\/[^/]+\/([^.]+).*/g, '$1');
+		path = path.replace(/https?:(\/\/[^/]+\/[^.]+.*)/g, '$1');
+		console.log(path);
 		return !path.match(/\.gifv/g)?'':'\
 <style>\
 .imgurEmbed {\

@@ -101,17 +101,37 @@
 					view_mode: unread_only? 'unread': 'all_articles'
 				}));
 			},
-			markAsReaded: function(id){
+			updateArticle: function(opts) {
+				return defer(api, angular.extend(
+					{
+						article_ids: id,
+						mode: 2,
+						field: 0,
+					},
+					dataRequest,
+					opts,
+					{op:'updateArticle',}
+				));
+			},
+			markAsReaded: function(id, to){
+				to = to || 0
 				return defer(api, angular.extend({}, dataRequest, {
 					op:'updateArticle',
 					article_ids: id,
-					mode: 0,
+					mode: to,
 					field: 2
 				}));
 			},
 			article: function(id){
 				return defer(api, angular.extend({}, dataRequest, {
 					op:'getArticle', article_id: id}));
+			},
+			publish: function(title, url, content){
+				return defer(api, angular.extend({}, dataRequest, {
+					op:'shareToPublished',
+					title: title,
+					url:url,
+					content: content}));				
 			}
 		}
 	}]);

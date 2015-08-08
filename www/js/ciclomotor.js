@@ -3,14 +3,15 @@
 	var mobilete = angular.module('ttRssMobilete');
 
 	mobilete.factory('Inform', ['$mdToast', function($mdToast) {
-		return function(msg) {
+		var result = function(msg) {
 			$mdToast.show(
 			  $mdToast.simple()
 				.content(msg)
 				.position('top left')
 				.hideDelay(3000)
 			);
-		}
+		};
+		return result;
 	}]);
 	
 	mobilete.factory('Plugins', ['Settings', function(Settings) {
@@ -28,7 +29,8 @@
 							return;
 						}
 					}
-			});
+				}
+			);
 			if (src && notLoaded) {
 				var script = document.createElement('script');
 				script.type = 'text/javascript';

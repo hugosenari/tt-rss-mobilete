@@ -324,8 +324,8 @@
 	}]);
 	
 	mobilete.controller('ArticleController',
-			['$rootScope', '$scope', '$routeParams', '$window', 'hotkeys', 'Api', 'Inform', 'Plugins',
-			function($rootScope, $scope, $routeParams, $window, hotkeys, Api, Inform, Plugins) {
+			['$rootScope', '$scope', '$routeParams', '$window', '$sce', 'hotkeys', 'Api', 'Inform', 'Plugins',
+			function($rootScope, $scope, $routeParams, $window, $sce, hotkeys, Api, Inform, Plugins) {
 		$scope.article = $rootScope.article || {};
 		$scope.items = null
 		
@@ -333,10 +333,9 @@
 			for (var i in data.content) {
 				data.content[i] = Plugins.apply('before-show-article', data.content[i]);
 				$scope.article = angular.extend({}, $scope.article, data.content[i]);
-				data.content[i].content =
-				(
+				data.content[i].content = $sce.trustAsHtml(
 				 data.content[i].content||''
-				).replace(/width=/, 'width-change-by-mobilete=');
+				);
 			}
 			$scope.items = data.content;
 			Api.markAsReaded($routeParams.article);

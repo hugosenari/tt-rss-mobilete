@@ -16,7 +16,7 @@
 	
 	mobilete.factory('Plugins', ['Settings', function(Settings) {
 		var before = [];
-		function addScript(src) {
+		function addScript(src, reload) {
 			var body = document.getElementsByTagName('body')[0],
 				notLoaded = true;
 			angular.forEach(
@@ -31,7 +31,7 @@
 					}
 				}
 			);
-			if (src && notLoaded) {
+			if (notLoaded || reload) {
 				var script = document.createElement('script');
 				script.type = 'text/javascript';
 				script.src = src

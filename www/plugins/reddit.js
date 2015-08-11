@@ -40,7 +40,7 @@
 	
 		
 		function getImagurIframe(path){
-			var id = path.replace(/.+imgur\.com\/([^.]+)\.*.*/, '$1');
+			var id = path.replace(/.+imgur\.com\/([^.#]+)\.*.*#*.*/, '$1');
 			id = id.replace(/gallery\//, '');
 			return ! id ? '':'<blockquote class="imgur-embed-pub" lang="en" data-id="' + id  + '" data-context="false">\
 	<md-button class="md-fab md-mini md-raised" title="show this"\

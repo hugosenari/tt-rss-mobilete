@@ -278,8 +278,9 @@
 		
 		function openFocusedInOtherTab() {
 			Inform('Open in new tab/window');
-			Api.markAsReaded(items[index].id);
 			window.open(items[index].link, items[index].link);
+			items[index].unread = false;
+			Api.markAsReaded(items[index].id);
 			focusOn(+1);
 		}
 		

@@ -7,7 +7,7 @@
 			$mdToast.show(
 			  $mdToast.simple()
 				.content(msg)
-				.position('top left')
+				.position('top right')
 				.hideDelay(3000)
 			);
 		};
@@ -19,6 +19,7 @@
 		function addScript(src, reload) {
 			var body = document.getElementsByTagName('body')[0],
 				notLoaded = true;
+
 			angular.forEach(
 				angular.element(body).children(),
 				function(element){
@@ -48,6 +49,7 @@
 					}
 				}
 			},
+
 			watch: function(match, callback) {
 				if (callback) {
 					before.push(
@@ -55,6 +57,7 @@
 					)
 				}
 			},
+
 			apply: function(name, params){
 				for (var i in before){
 					var item = before[i];
@@ -62,12 +65,12 @@
 						try{
 							params = item.callback(params);
 						} catch(e) {
-							window.console && window.console.log(e);
+							window.console && window.console.debug(e);
 						}
 					}
 				}
 				return params;
-			}
+			},
 		}
 	}]);
 	
@@ -81,6 +84,9 @@
 			'unread_only': false,
 			'plugins': [
 				{src: 'plugins/reddit.js'},
+				{src: 'plugins/target_blank.js'},
+				{src: 'plugins/youtube.js'},
+				{src: 'plugins/imgur.js'},
 				{src: 'plugins/chicken.js'}
 			],
 		}, localStorage.getItem('settings'));

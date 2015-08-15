@@ -334,10 +334,15 @@
 				data.content[i] = Plugins.apply('before-show-article', data.content[i]);
 				$scope.article = angular.extend({}, $scope.article, data.content[i]);
 				data.content[i].content = $sce.trustAsHtml(
-				 data.content[i].content||''
+					data.content[i].content||''
 				);
 			}
 			$scope.items = data.content;
+			$scope.$watch('items', function(val){
+				if (val) {
+					setTimeout(function(){Plugins.apply('after-show-article', val)}, 200);
+				}
+			});
 			Api.markAsReaded($routeParams.article);
 		});
 		

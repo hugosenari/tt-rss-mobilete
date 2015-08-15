@@ -51,6 +51,7 @@ return '<md-button class="md-fab md-mini md-raised" title="' + text + '" vid="'+
 				myHtml = (myHtml||'') + getYoutubeIframe(getYoutubePath(url), text);
 			});
 			if (myHtml) {
+				myHtml = myHtml + getMyStyle();
 				var contents = document.querySelectorAll('.article-content');
 					angular.element(contents).append(angular.element(myHtml));
 			}

@@ -1,25 +1,46 @@
 <md-content
-    md-swipe-left="openOtherItem(-1)"
-    md-swipe-right="openOtherItem(+1)">
-    <md-subheader class="md-primary">
-      <p><small>{{article.feed_title}}</small></p>
-      <p><a ng-href="{{article.link}}" target="{{article.link}}"> {{article.title}}</a></p>
-      <p ng-bind-html="article.excerpt"></p>
-    </md-subheader>
-    <md-content layout-align="center center" layout>
-      <md-progress-circular md-mode="indeterminate" ng-show="!items"></md-progress-circular>
-    </md-content>
-    
-    <md-content layout-padding class='jossa'>
-      <div class="article-content" ng-repeat="item in items" ng-bind-html="item.content"></div>
-    </md-content>
-    
-    <div layout-align="space-between end" layout="row" class="nav-buttons">
-      <md-button class="md-fab md-mini md-raised" ng-click="openOtherItem(-1)" ng-if="hasNext">
+  md-swipe-left="openOtherItem(-1)"
+  md-swipe-right="openOtherItem(+1)"
+  class="article"
+>
+  <div layout-align="space-between" layout="row" class="nav-buttons nav-buttons-top">
+    <div>
+      <md-button class="md-icon-button" ng-click="openOtherItem(-1)" n-if="hasNext">
         <i class="material-icons">skip_previous</i>
       </md-button>
-      <md-button class="md-fab md-mini md-raised" ng-click="openOtherItem(+1)" ng-if="hasPrev">
-        <i class="material-icons">skip_next</i>
+    </div>
+    
+    <p><small>{{article.feed_title}}</small></p>
+    
+    <div>
+      <md-button class="md-icon-button" ng-click="openOtherItem(+1)" n-if="hasPrev">
+      <i class="material-icons">skip_next</i>
       </md-button>
     </div>
+  </div>
+  
+  <md-subheader class="md-primary">
+    <p><a ng-href="{{article.link}}" target="{{article.link}}"> {{article.title}}</a></p>
+    <p ng-bind-html="article.excerpt"></p>
+  </md-subheader>
+  
+  <md-content layout-align="center center" layout nf-if="hasPrev">
+    <md-progress-circular md-mode="indeterminate" ng-show="!items"></md-progress-circular>
+  </md-content>
+  
+  <div class="article-content" ng-repeat="item in items" ng-bind-html="item.content" ng-show="items"></div>
+
+  <div layout-align="space-between" layout="row" class="nav-buttons nav-buttons-end">
+    <div>
+      <md-button class="md-icon-button" ng-click="openOtherItemrItem(-1)" ng-if="hasNext">
+        <i class="material-icons">skip_previous</i>
+      </md-button>
+    </div>
+    
+    <div>
+      <md-button class="md-icon-button" ng-click="openOtherItem(+1)" ng-if="hasPrev">
+      <i class="material-icons">skip_next</i>
+      </md-button>
+    </div>
+  </div>  
 </md-content>

@@ -1,24 +1,15 @@
-.md-toolbar-tools .material-icons{
-  font-size: 42px;
-}
+/* toolbar */
+.md-toolbar-tools .material-icons{font-size: 42px;}
 
-.md-3-line .material-icons{
-  font-size: 32px;
-}
+.md-3-line .material-icons{font-size: 32px;}
 
-.article-content{
-  padding-bottom: 60px;
-}
+/* feed list */
 
-.nav-buttons {
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-}
-
-.nav-buttons .material-icons{
-  font-size: 30px;
-  margin-top: 4px;
+md-list-item.md-2-line .md-list-item-text h3,
+md-list-item.md-2-line > .md-no-style .md-list-item-text h3,
+md-list-item.md-3-line .md-list-item-text h3,
+md-list-item.md-3-line > .md-no-style .md-list-item-text h3{
+  line-height: 1em;
 }
 
 .thumb {
@@ -26,23 +17,32 @@
   padding-right: 10px;
 }
 
-.unread .p{
-  font-weight: bolder;
-}
-
-
-md-list-item.md-2-line .md-list-item-text h3, md-list-item.md-2-line > .md-no-style .md-list-item-text h3, md-list-item.md-3-line .md-list-item-text h3, md-list-item.md-3-line > .md-no-style .md-list-item-text h3{
-  line-height: 1em;
+/* article */
+.article-content{
+  padding-bottom: 60px;
 }
 
 .article-content img{
   max-width: 100%;
 }
 
-md-content {
-  transition: all 400ms ease-out 50ms;
+.article .md-subheader .md-subheader-inner{
+  padding-top: 0px;
 }
 
-pre.chicken {
-  font: 2px/1px monospace;
+/* nav buttons*/
+.nav-buttons .material-icons{
+  font-size: 30px;
+  margin-top: 10px;
+  color: #eee;
+}
+
+.nav-buttons-end {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
+.nav-buttons-top p{
+  text-align: center;
 }

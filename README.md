@@ -2,12 +2,13 @@
 My own clone of [ttrss-mobile](https://github.com/mboinet/ttrss-mobile)
 or Mobile Interface for [Tiny Tiny Rss](https://tt-rss.org/redmine/projects/tt-rss/wiki).
 
+[See Screenshot](https://goo.gl/photos/BKvDTC4FV71cPP5X7).
+
 # Features
 
-* List and Show RSS (DUH!);
-* Swipe in headlines to mark as read (left);
-* Swipe in headlines to open link (right);
-* Swipe in article to next/prev.
+* Swipe Shortcuts;
+* Keyborad Shortcuts;
+* Basic Plugin Support;
 
 Code
 ----
@@ -24,8 +25,10 @@ Clone inside your Tiny Tiny Rss server and open subdir in your browser.
 I create two a cartridge for openshift [TT-RSS-Mobile-Cart](https://github.com/hugosenari/tt-rss-mobilete-cart) and [g2ttrss-mobile-cart](https://github.com/hugosenari/g2ttrss-mobile-cart) to help installation.
 
 # TO DO
-* More settings;
-* Better interface;
+* More Settings;
+* More Plugins;
+* Better Interface;
+* Themes;
 * And other suggestions from [ttrss-mobile](https://github.com/mboinet/ttrss-mobile/issues).
 
 # Know Bugs

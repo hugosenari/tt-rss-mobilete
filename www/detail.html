@@ -5,7 +5,7 @@
 >
   <div layout-align="space-between" layout="row" class="nav-buttons nav-buttons-top">
     <div>
-      <md-button class="md-icon-button" ng-click="openOtherItem(-1)" n-if="hasNext">
+      <md-button class="md-icon-button" ng-click="openOtherItem(-1)" ng-if="hasNext">
         <i class="material-icons">skip_previous</i>
       </md-button>
     </div>
@@ -13,7 +13,7 @@
     <p><small>{{article.feed_title}}</small></p>
     
     <div>
-      <md-button class="md-icon-button" ng-click="openOtherItem(+1)" n-if="hasPrev">
+      <md-button class="md-icon-button" ng-click="openOtherItem(+1)" ng-if="hasPrev">
       <i class="material-icons">skip_next</i>
       </md-button>
     </div>

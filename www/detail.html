@@ -28,7 +28,9 @@
     <md-progress-circular md-mode="indeterminate" ng-show="!items"></md-progress-circular>
   </md-content>
   
-  <div class="article-content" ng-repeat="item in items" ng-bind-html="item.content" ng-show="items"></div>
+  <md-content layout-padding>
+    <div class="article-content" ng-repeat="item in items" ng-bind-html="item.content" ng-show="items"></div>
+  </md-content>
 
   <div layout-align="space-between" layout="row" class="nav-buttons nav-buttons-end">
     <div>

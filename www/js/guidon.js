@@ -388,14 +388,14 @@
 					{
 						combo: 'left',
 						description: 'Show Prev',
-						callback: function() {$scope.openOtherItem(+1);} 
+						callback: function() {$scope.openOtherItem(-1);} 
 					}
 				)
 				.add(
 					{
 						combo: 'right',
 						description: 'Show Next',
-						callback: function() {$scope.openOtherItem(-1);} 
+						callback: function() {$scope.openOtherItem(+1);} 
 					}
 				)
 				.add(

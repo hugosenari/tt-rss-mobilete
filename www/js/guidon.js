@@ -241,6 +241,7 @@
 		
 		$scope.openInOtherTab = function(article, event) {
 			Inform('Open in new tab/window');
+			article.unread = false;
 			Api.markAsReaded(article.id);
 			window.open(article.link, article.link);
 		}

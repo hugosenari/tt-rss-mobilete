@@ -11,8 +11,8 @@
 		}
 		
 		function getUrl(content) {
-			var url = content.replace(/<a([^>]+)>\[link\]/, '$1');
-			url = url.replace(/href='?"?([^"']+)/, '$1')
+			var url = content.replace(/.+<a([^>]+)>\[link\].+/, '$1');
+			url = url.replace(/.+href='?"?([^"']+).+/, '$1')
 			return url;
 		}
 		

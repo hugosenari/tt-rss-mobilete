@@ -18,7 +18,7 @@
 		
 		function appendVoteButton(content) {
 			var URL = getUrl(content),
-				btn = '<script type="text/javascript">reddit_url='+URL+'</script>' +
+				btn = '<script type="text/javascript">reddit_url="'+URL+'"</script>' +
 			'<script type="text/javascript" ' +
 			'src="//www.redditstatic.com/button/button3.js">' +
 			'</script>';

@@ -27,7 +27,7 @@
 				args.link = args.link.replace('www.reddit.com', 'm.reddit.com');
 				if (args.content) {
 					args.content = removeTables(args.content);
-					args.content = appendVoteButton(args.content);
+					//args.content = appendVoteButton(args.content);
 				}
 			}
             return args;

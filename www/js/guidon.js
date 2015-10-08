@@ -217,7 +217,7 @@
 		    feed_id = $routeParams.feed || $routeParams.category,
 		    is_cat = !$routeParams.feed;
 		
-		Api.feed($routeParams.feed, Settings.get()['unread_only'], is_cat)
+		Api.feed(feed_id, Settings.get()['unread_only'], is_cat)
 			.then(function(data){
 				data.content = Plugins.apply('before-list-headlines', data.content);
 				$scope.items = data.content;

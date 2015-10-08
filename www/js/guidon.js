@@ -354,13 +354,14 @@
 			});
 			Api.markAsReaded($routeParams.article);
 		});
-		
+
+		var list = $rootScope.list || [],
+		    index = $rootScope.index || 0
+		    feed_id = $routeParams.feed == 'undefined' ? '' : $routeParams.feed;
+
 		$scope.$emit('backTo', '#/feeds/' +
 			$routeParams.category + '/' +
 			$routeParams.feed);
-		
-		var list = $rootScope.list || [],
-		index = $rootScope.index || 0;
 			
 		$scope.openOtherItem= function(to){
 			var newIndex = index + to;

@@ -26,6 +26,11 @@
 				templateUrl: 'categories.html',
 				resolve: angular.extend({}, resolver)
 			})
+			.when('/feeds/:category', {
+				controller: 'FeedController',
+				templateUrl: 'items.html',
+				resolve: angular.extend({}, resolver)
+			})
 			.when('/feeds/:category/:feed', {
 				controller: 'FeedController',
 				templateUrl: 'items.html',
@@ -208,9 +213,11 @@
 		$scope.$emit('backTo', '#/feeds/');
 
 		var items = [],
-		index = 0;
+		    index = 0,
+		    feed_id = $routeParams.feed || $routeParams.category,
+		    is_cat = !$routeParams.feed;
 		
-		Api.feed($routeParams.feed, Settings.get()['unread_only'])
+		Api.feed($routeParams.feed, Settings.get()['unread_only'], is_cat)
 			.then(function(data){
 				data.content = Plugins.apply('before-list-headlines', data.content);
 				$scope.items = data.content;

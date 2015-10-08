@@ -93,11 +93,13 @@
 				return defer(api, angular.extend({}, dataRequest, {
 					op:'getFeeds', cat_id: id}));
 			},
-			feed: function(id, unread_only){
+			feed: function(id, unread_only, is_cat){
 				unread_only = unread_only || false;
+				is_cat = is_cat || false;
 				return defer(api, angular.extend({}, dataRequest, {
 					op:'getHeadlines',
 					feed_id: id,
+					is_cat: is_cat,
 					view_mode: unread_only? 'unread': 'all_articles'
 				}));
 			},

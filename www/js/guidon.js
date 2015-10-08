@@ -309,23 +309,27 @@
 		
 		function markFocusedAsRead() {
 			Inform('Marked as readed');
-			items[index].unread = false;
-			Api.markAsReaded(items[index].id);
+			if (items[index].unread) {
+				items[index].unread = false;
+				Api.markAsReaded(items[index].id);
+				var feed = $scope.feed;
+				feed.unread = feed.unread == 0 ? 0 : feed.unread - 1
+				$scope.feed = feed;
+			}
 			focusOn(+1);
-			var feed = $scope.feed;
-			feed.unread = feed.unread == 0 ? 0 : feed.unread - 1
-			$scope.feed = feed;
 		}
 		
 		function openFocusedInOtherTab() {
 			Inform('Open in new tab/window');
 			window.open(items[index].link, items[index].link);
-			items[index].unread = false;
-			Api.markAsReaded(items[index].id);
+			if (items[index].unread) {
+				items[index].unread = false;
+				var feed = $scope.feed;
+				feed.unread = feed.unread == 0 ? 0 : feed.unread - 1
+				$scope.feed = feed;
+				Api.markAsReaded(items[index].id);
+			}
 			focusOn(+1);
-			var feed = $scope.feed;
-			feed.unread = feed.unread == 0 ? 0 : feed.unread - 1
-			$scope.feed = feed;
 		}
 		
 		function bindShortcuts() {

@@ -246,6 +246,10 @@
 					focusOn(0);
 				}
 			});
+			
+		function updateUnread(){
+			
+		}
 		
 		$scope.openItem= function(item, index){
 			$rootScope.article = item;
@@ -259,14 +263,24 @@
 		
 		$scope.markAsReaded = function(article, event){
 			Inform('Marked as readed');
-			article.unread = false;
-			Api.markAsReaded(article.id);
+			if (article.unread) {
+				article.unread = false;
+				var feed = $scope.feed;
+				feed.unread = feed.unread == 0 ? 0 : feed.unread - 1
+				$scope.feed = feed;
+				Api.markAsReaded(article.id);
+			}
 		}
 		
 		$scope.openInOtherTab = function(article, event) {
 			Inform('Open in new tab/window');
-			article.unread = false;
-			Api.markAsReaded(article.id);
+			if (article.unread) {
+				article.unread = false;
+				var feed = $scope.feed;
+				feed.unread = feed.unread == 0 ? 0 : feed.unread - 1
+				$scope.feed = feed;
+				Api.markAsReaded(article.id);
+			}
 			window.open(article.link, article.link);
 		}
 		
@@ -298,6 +312,9 @@
 			items[index].unread = false;
 			Api.markAsReaded(items[index].id);
 			focusOn(+1);
+			var feed = $scope.feed;
+			feed.unread = feed.unread == 0 ? 0 : feed.unread - 1
+			$scope.feed = feed;
 		}
 		
 		function openFocusedInOtherTab() {
@@ -306,6 +323,9 @@
 			items[index].unread = false;
 			Api.markAsReaded(items[index].id);
 			focusOn(+1);
+			var feed = $scope.feed;
+			feed.unread = feed.unread == 0 ? 0 : feed.unread - 1
+			$scope.feed = feed;
 		}
 		
 		function bindShortcuts() {
@@ -371,6 +391,10 @@
 			});
 			Api.markAsReaded($routeParams.article);
 		});
+		
+		var feed = $rootScope.feed;
+		feed.unread = feed.unread == 0 ? 0 : feed.unread - 1
+		$rootScope.feed = feed;
 
 		var list = $rootScope.list || [],
 		    index = $rootScope.index || 0,

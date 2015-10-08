@@ -396,9 +396,16 @@
 			Api.markAsReaded($routeParams.article);
 		});
 		
-		var feed = $rootScope.feed;
-		feed.unread = feed.unread == 0 ? 0 : feed.unread - 1
-		$rootScope.feed = feed;
+		if ($rootScope.feed) {
+			var feed = $rootScope.feed;
+			feed.unread = feed.unread == 0 ? 0 : feed.unread - 1
+			$rootScope.feed = feed;
+		}
+		if ($rootScope.category) {
+			var feed = $rootScope.category;
+			feed.unread = feed.unread == 0 ? 0 : feed.unread - 1
+			$rootScope.category = feed;
+		}
 
 		var list = $rootScope.list || [],
 		    index = $rootScope.index || 0,

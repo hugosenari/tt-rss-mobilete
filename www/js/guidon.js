@@ -185,6 +185,7 @@
 		});
 		$scope.openItem= function(item, category){
 			$rootScope.feed = item;
+			$rootScope.category = category;
 			$window.location.href = '#/feeds/' + category.id + '/'+ item.id;
 		};
 	}]);
@@ -196,26 +197,38 @@
 		$scope.items = false;
 		$scope.unread_only = Settings.get()['unread_only'] ? 'unread_only' : 'read_and_unread'
 		
-		if ($rootScope.feed) {
+		var items = [],
+		    index = 0,
+		    feed_id = $routeParams.feed || $routeParams.category,
+		    is_cat = !$routeParams.feed;
+		
+		if (is_cat && $rootScope.category) {
+			$scope.feed = $rootScope.category;
+		} else if (is_cat && !$rootScope.category){
+			Api.categories().then(function(data){
+				for(var i in data.content) {
+					var feed = data.content[i];
+					if (feed.id == feed_id) {
+						$scope.feed = feed;
+						break;
+					}
+				}
+			});
+		} else if ($rootScope.feed) {
 			$scope.feed = $rootScope.feed;
 		} else {
 			Api.feeds($routeParams.category).then(function(data){
 				for(var i in data.content) {
 					var feed = data.content[i];
-					if (feed.id == $routeParams.feed) {
+					if (feed.id == feed_id) {
 						$scope.feed = feed;
 						break;
 					}
 				}
-			});			
+			});
 		}
 		
 		$scope.$emit('backTo', '#/feeds/');
-
-		var items = [],
-		    index = 0,
-		    feed_id = $routeParams.feed || $routeParams.category,
-		    is_cat = !$routeParams.feed;
 		
 		Api.feed(feed_id, Settings.get()['unread_only'], is_cat)
 			.then(function(data){
@@ -236,7 +249,7 @@
 			$rootScope.list = items;
 			$window.location.href = '#/feeds/' +
 				$routeParams.category + '/' +
-				$routeParams.feed + '/'+
+				($routeParams.feed||'category') + '/'+
 				item.id;
 		};
 		
@@ -357,7 +370,7 @@
 
 		var list = $rootScope.list || [],
 		    index = $rootScope.index || 0,
-		    feed_id = $routeParams.feed == 'undefined' ? '' : $routeParams.feed;
+		    feed_id = $routeParams.feed == 'category' ? '' : $routeParams.feed;
 
 		$scope.$emit('backTo', '#/feeds/' +
 			$routeParams.category + '/' +

@@ -356,7 +356,7 @@
 		});
 
 		var list = $rootScope.list || [],
-		    index = $rootScope.index || 0
+		    index = $rootScope.index || 0,
 		    feed_id = $routeParams.feed == 'undefined' ? '' : $routeParams.feed;
 
 		$scope.$emit('backTo', '#/feeds/' +

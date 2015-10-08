@@ -23,9 +23,9 @@
             
             <div ng-show="items">
               <md-list-item
+                             ng-if="category.id > 0"
                              ng-class="(category.unread ? 'unread':'read') + ' md-3-line odd'"
                              ng-click="openCategoryAsItem(category)">
-                <img ng-src="{{iconPath(item.id)}}" class="thumb" alt="{{item.title}}"  ng-if="item.has_icon">
                 <div class="md-list-item-text">
                   <p>
                     ({{category.unread}}) {{category.title}} (all above)

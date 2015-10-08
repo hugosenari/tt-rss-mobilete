@@ -188,6 +188,10 @@
 			$rootScope.category = category;
 			$window.location.href = '#/feeds/' + category.id + '/'+ item.id;
 		};
+		$scope.openCategoryAsItem= function(category){
+			$rootScope.category = category;
+			$window.location.href = '#/feeds/' + category.id;
+		};
 	}]);
 	
 	mobilete.controller('FeedController',

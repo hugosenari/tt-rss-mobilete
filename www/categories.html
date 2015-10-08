@@ -23,6 +23,17 @@
             
             <div ng-show="items">
               <md-list-item
+                             ng-class="(category.unread ? 'unread':'read') + ' md-3-line odd'"
+                             ng-click="openCategoryAsItem(category)">
+                <img ng-src="{{iconPath(item.id)}}" class="thumb" alt="{{item.title}}"  ng-if="item.has_icon">
+                <div class="md-list-item-text">
+                  <p>
+                    ({{category.unread}}) {{category.title}} (all above)
+                  </p>
+                </div>
+                <i class="material-icons">arrow_forward</i>
+              </md-list-item>
+              <md-list-item
                              ng-class="(item.unread ? 'unread':'read') + ' md-3-line '+ ($even ? 'even' : 'odd')"
                              ng-repeat="item in items"
                              ng-click="openItem(item, category)">

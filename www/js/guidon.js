@@ -361,7 +361,7 @@
 
 		$scope.$emit('backTo', '#/feeds/' +
 			$routeParams.category + '/' +
-			$routeParams.feed);
+			feed_id);
 			
 		$scope.openOtherItem= function(to){
 			var newIndex = index + to;

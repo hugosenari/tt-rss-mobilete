@@ -74,7 +74,7 @@
 		}
 	}]);
 	
-	mobilete.factory('Settings', ['$http', '$q', function($http, $q) {
+	mobilete.factory('Settings', ['$http', '$q', '$location', function($http, $q, $location) {
 		var settings = angular.extend({
 			'api-url': '/api/',
 			'icons_dir': 'feed-icons',
@@ -82,6 +82,7 @@
 			'daemon_is_running': false,
 			'num_feeds': 0,
 			'unread_only': false,
+			'sid': $location.search().sid,
 			'plugins': [
 				{src: 'plugins/reddit.js'},
 				{src: 'plugins/target_blank.js'},

@@ -5,6 +5,7 @@
 		var api = '/api/',
 			status = null,
 			dataRequest = {},
+			checkedSession = null,
 			reasons = ['invalid-api', 'invalid-sid', 'invalid-login', 'invalid-unknow'];
 			
 		function rejected(defer, data, status) {
@@ -48,7 +49,14 @@
 					'op': 'getConfig',
 					'sid': sid
 				}
-				return defer(api, dataRequest);
+				if (checkedSession) {
+					return $q.resolve("wont-check");
+				}
+				
+				return defer(api, dataRequest).then(function(data) {
+					checkedSession = true;
+					return data;
+				});
 			},
 			login: function login(user, pass, opts) {
 				opts = opts || {};

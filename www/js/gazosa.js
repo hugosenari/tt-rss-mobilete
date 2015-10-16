@@ -6,6 +6,8 @@
 			status = null,
 			dataRequest = {},
 			checkedSession = null,
+			markAsReadIds = [],
+			markAsReadTimout = null,
 			reasons = ['invalid-api', 'invalid-sid', 'invalid-login', 'invalid-unknow'];
 			
 		function rejected(defer, data, status) {
@@ -22,7 +24,7 @@
 						id = reasons[2];
 					}
 				}
-				defer.reject({data: data, id: id, status: status});	
+				defer.reject({data: data, id: id, status: status});
 				return true;
 			} else if (status > 299) {
 				defer.reject({data: data, id: reasons[0], status: status});
@@ -90,7 +92,6 @@
 						}
 					});
 				}
-
 				return result.promise;
 			},
 			categories: function(){
@@ -123,14 +124,33 @@
 					{op:'updateArticle',}
 				));
 			},
-			markAsReaded: function(id, to){
-				to = to || 0
-				return defer(api, angular.extend({}, dataRequest, {
-					op:'updateArticle',
-					article_ids: id,
-					mode: to,
-					field: 2
-				}));
+			markAsReaded: function(id, to, now){
+				to = to || 0;
+				var result = $q.defer();
+				if (now) {
+					result = defer(api, angular.extend({}, dataRequest, {
+						op:'updateArticle',
+						article_ids: id,
+						mode: to,
+						field: 2
+					}));
+				} else {
+					clearTimeout(markAsReadTimout);
+					markAsReadIds.push(id);
+					markAsReadTimout = setTimeout(function(){
+						return defer(api, angular.extend({}, dataRequest, {
+							op:'updateArticle',
+							article_ids: markAsReadIds.join(','),
+							mode: to,
+							field: 2
+						})).then(function(data) {
+							markAsReadIds = [];
+							result.resolve(data);
+							return data;
+						});
+					}, 1000);
+				}
+				return result.promise;
 			},
 			article: function(id){
 				return defer(api, angular.extend({}, dataRequest, {
@@ -141,7 +161,7 @@
 					op:'shareToPublished',
 					title: title,
 					url:url,
-					content: content}));				
+					content: content}));
 			}
 		}
 	}]);

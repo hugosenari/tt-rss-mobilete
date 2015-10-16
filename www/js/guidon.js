@@ -311,10 +311,10 @@
 			Inform('Marked as readed');
 			if (items[index].unread) {
 				items[index].unread = false;
-				Api.markAsReaded(items[index].id);
 				var feed = $scope.feed;
 				feed.unread = feed.unread == 0 ? 0 : feed.unread - 1
 				$scope.feed = feed;
+				Api.markAsReaded(items[index].id);
 			}
 			focusOn(+1);
 		}

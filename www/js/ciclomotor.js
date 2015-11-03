@@ -90,7 +90,7 @@
 				{src: 'plugins/imgur.js'},
 				{src: 'plugins/chicken.js'}
 			],
-		}, localStorage.getItem('settings'));
+		}, JSON.parse(localStorage.getItem('settings')));
 		
 		function getSettings() {
 			return angular.extend({}, settings, JSON.parse(localStorage.getItem('settings')));

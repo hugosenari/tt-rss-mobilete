@@ -3,9 +3,9 @@
     var mobilete = angular.module('ttRssMobilete');
 	mobilete.factory('Api', ['$http', '$q', function($http, $q) {
 		var api = '/api/',
-			status = null,
 			dataRequest = {},
 			checkedSession = null,
+			tokenExpiration = 1000 * 60 * 20,
 			markAsReadIds = [],
 			markAsReadTimout = null,
 			reasons = ['invalid-api', 'invalid-sid', 'invalid-login', 'invalid-unknow'];
@@ -41,6 +41,11 @@
 			return result.promise;
 		}
 		
+		function checkSession() {
+			var now = new Date().getTime();
+			return now - checkedSession < tokenExpiration;
+		}
+		
 		return {
 			reasons: reasons,
 			session: function setSession(sid, opts) {
@@ -50,13 +55,14 @@
 				dataRequest = {
 					'op': 'getConfig',
 					'sid': sid
-				}
-				if (checkedSession) {
+				};
+				
+				if (checkSession()) {
 					return $q.resolve("wont-check");
 				}
 				
 				return defer(api, dataRequest).then(function(data) {
-					checkedSession = true;
+					checkedSession = new Date().getTime();
 					return data;
 				});
 			},
@@ -68,7 +74,7 @@
 					'op': 'login',
 					'user': user,
 					'password': pass
-				}
+				};
 				return defer(api, data).then(function(data) {
 					dataRequest.sid = data.content.session_id;
 					return data;
@@ -163,6 +169,6 @@
 					url:url,
 					content: content}));
 			}
-		}
+		};
 	}]);
 })();

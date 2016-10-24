@@ -7,7 +7,7 @@
 			token: ['Settings', 'Api', function (Settings, Api) {
 				return Api.session(Settings.get().sid);
 			}]
-		}
+		};
 		
 		$routeProvider
 			.when('/', {
@@ -71,7 +71,7 @@
 		}
 		
 		for(var i in plugins_src){
-			settings['plugins'] = settings['plugins'].concat([{
+			settings.plugins = settings.plugins.concat([{
 				src: plugins_src[i],
 				enabled: false
 			}]);
@@ -79,8 +79,8 @@
 		
 		$scope.settings = {
 			api: settings['api-url'],
-			unread_only: settings['unread_only'],
-			plugins: settings['plugins']
+			unread_only: settings.unread_only,
+			plugins: settings.plugins
 		};
 		
 		$scope.save = function(settings) {
@@ -107,7 +107,7 @@
 					$scope.form.api.$error.invalid = true;
 				}
 			);
-		}
+		};
 		
 		$scope.addPlugin = function(newPlugin){
 			if (newPlugin) {
@@ -118,7 +118,7 @@
 				plugins_param.push('plugin=' + plugins_src[i]);
 			}
 			$window.location.href = '#/settings?' + plugins_param.join('&');
-		}
+		};
 		$scope.$emit('backTo', '#/');
 	}]);
 	
@@ -134,7 +134,7 @@
 			Api.login(login.user, login.password).then(
 				function (data) {
 					Settings.set('sid', data.content.session_id);
-					$window.location.href = '#/feeds'
+					$window.location.href = '#/feeds';
 				},
 				function (reason) {
 					$scope.saving = false;
@@ -148,7 +148,7 @@
 					}
 				}
 			);
-		}
+		};
 		
 		$scope.$emit('backTo', null);
 	}]);
@@ -199,7 +199,7 @@
 			function($rootScope, $scope, $routeParams, $window, hotkeys, Settings, Api, Inform, Plugins) {
 		$scope.iconPath = Settings.icon;
 		$scope.items = false;
-		$scope.unread_only = Settings.get()['unread_only'] ? 'unread_only' : 'read_and_unread'
+		$scope.unread_only = Settings.get().unread_only ? 'unread_only' : 'read_and_unread';
 		
 		var items = [],
 		    index = 0,
@@ -234,7 +234,7 @@
 		
 		$scope.$emit('backTo', '#/feeds/');
 		
-		Api.feed(feed_id, Settings.get()['unread_only'], is_cat)
+		Api.feed(feed_id, Settings.get().unread_only, is_cat)
 			.then(function(data){
 				data.content = Plugins.apply('before-list-headlines', data.content);
 				$scope.items = data.content;
@@ -246,10 +246,6 @@
 					focusOn(0);
 				}
 			});
-			
-		function updateUnread(){
-			
-		}
 		
 		$scope.openItem= function(item, index){
 			$rootScope.article = item;
@@ -261,28 +257,28 @@
 				item.id;
 		};
 		
-		$scope.markAsReaded = function(article, event){
+		$scope.markAsReaded = function(article){
 			Inform('Marked as readed');
 			if (article.unread) {
 				article.unread = false;
 				var feed = $scope.feed;
-				feed.unread = feed.unread == 0 ? 0 : feed.unread - 1
+				feed.unread = feed.unread === 0 ? 0 : feed.unread - 1;
 				$scope.feed = feed;
 				Api.markAsReaded(article.id);
 			}
-		}
+		};
 		
-		$scope.openInOtherTab = function(article, event) {
+		$scope.openInOtherTab = function(article) {
 			Inform('Open in new tab/window');
 			if (article.unread) {
 				article.unread = false;
 				var feed = $scope.feed;
-				feed.unread = feed.unread == 0 ? 0 : feed.unread - 1
+				feed.unread = feed.unread === 0 ? 0 : feed.unread - 1;
 				$scope.feed = feed;
 				Api.markAsReaded(article.id);
 			}
 			window.open(article.link, article.link);
-		}
+		};
 		
 		function focusOn(to) {
 			var newIndex = index + to;
@@ -312,7 +308,7 @@
 			if (items[index].unread) {
 				items[index].unread = false;
 				var feed = $scope.feed;
-				feed.unread = feed.unread == 0 ? 0 : feed.unread - 1
+				feed.unread = feed.unread === 0 ? 0 : feed.unread - 1;
 				$scope.feed = feed;
 				Api.markAsReaded(items[index].id);
 			}
@@ -325,7 +321,7 @@
 			if (items[index].unread) {
 				items[index].unread = false;
 				var feed = $scope.feed;
-				feed.unread = feed.unread == 0 ? 0 : feed.unread - 1
+				feed.unread = feed.unread === 0 ? 0 : feed.unread - 1;
 				$scope.feed = feed;
 				Api.markAsReaded(items[index].id);
 			}
@@ -377,7 +373,7 @@
 			['$rootScope', '$scope', '$routeParams', '$window', '$sce', 'hotkeys', 'Api', 'Inform', 'Plugins',
 			function($rootScope, $scope, $routeParams, $window, $sce, hotkeys, Api, Inform, Plugins) {
 		$scope.article = $rootScope.article || {};
-		$scope.items = null
+		$scope.items = null;
 		
 		Api.article($routeParams.article).then(function(data){
 			for (var i in data.content) {
@@ -390,7 +386,7 @@
 			$scope.items = data.content;
 			$scope.$watch('items', function(val){
 				if (val) {
-					setTimeout(function(){Plugins.apply('after-show-article', val)}, 200);
+					setTimeout(function(){Plugins.apply('after-show-article', val);}, 200);
 				}
 			});
 			Api.markAsReaded($routeParams.article);
@@ -398,12 +394,12 @@
 		
 		if ($rootScope.feed) {
 			var feed = $rootScope.feed;
-			feed.unread = feed.unread == 0 ? 0 : feed.unread - 1
+			feed.unread = feed.unread === 0 ? 0 : feed.unread - 1;
 			$rootScope.feed = feed;
 		}
 		if ($rootScope.category) {
 			var feed = $rootScope.category;
-			feed.unread = feed.unread == 0 ? 0 : feed.unread - 1
+			feed.unread = feed.unread === 0 ? 0 : feed.unread - 1;
 			$rootScope.category = feed;
 		}
 

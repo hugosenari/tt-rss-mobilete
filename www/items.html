@@ -2,6 +2,13 @@
     <md-subheader class="md-primary">
       <img ng-src="{{iconPath(feed.id)}}" class="thumb" alt="{{feed.title}}"  ng-if="feed.has_icon">
       ({{feed.unread}}) {{feed.title}}
+      <span flex></span>
+      <md-button
+               class="md-icon-button"
+               aria-label="Refresh"
+               ng-click="reloadRoute()">
+        <i class="material-icons">autorenew</i>
+      </md-button>
     </md-subheader>
     <md-content layout-align="center center" layout>
       <md-progress-circular md-mode="indeterminate" ng-show="!items || !feed"></md-progress-circular>

@@ -195,8 +195,8 @@
 	}]);
 	
 	mobilete.controller('FeedController',
-			['$rootScope', '$scope', '$routeParams', '$window', 'hotkeys', 'Settings', 'Api', 'Inform', 'Plugins',
-			function($rootScope, $scope, $routeParams, $window, hotkeys, Settings, Api, Inform, Plugins) {
+			['$route', '$rootScope', '$scope', '$routeParams', '$window', 'hotkeys', 'Settings', 'Api', 'Inform', 'Plugins',
+			function($route, $rootScope, $scope, $routeParams, $window, hotkeys, Settings, Api, Inform, Plugins) {
 		$scope.iconPath = Settings.icon;
 		$scope.items = false;
 		$scope.unread_only = Settings.get().unread_only ? 'unread_only' : 'read_and_unread';
@@ -246,6 +246,10 @@
 					focusOn(0);
 				}
 			});
+		
+		$scope.reloadRoute = function() {
+			$route.reload();
+		};
 		
 		$scope.openItem= function(item, index){
 			$rootScope.article = item;

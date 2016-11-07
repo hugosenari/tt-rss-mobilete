@@ -16,3 +16,4 @@
 node_modules
 *.komodoproject
 www/bower_components
+output

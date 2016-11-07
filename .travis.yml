@@ -1,13 +1,14 @@
 language: node_js
 node_js:
-  - "6"
+- '6'
 before_script:
-  - npm install grunt-cli -g
-  - npm install .
+- npm install grunt-cli -g
 before_deploy:
-  - grunt
+- grunt
 deploy:
   provider: openshift
-  user: "hugosenari"
-  app: "rss-beguel"
-  domain: "rss-beguel.rhcloud.com"
+  user: hugosenari@gmail.com
+  password:
+    secure: zOICsYtsXSFcVh19Xt/uFfRViC9/rCJjMGYMvZ4qL9Ae9YzbARa5xae66ncYOklQUR0oMZVSvL8pHYhSkQQTeKTFA5SzNus8GXcKncKA0VOTM3i+rKyv8HPGV7HpPtDz3mXwgxCbXrYKo1p1hNshFp5H7MoUV5aWkQs+zuBLcwxw9ZfCUoNWbHTLE5MbOiqqgy+IjFCTStMNa88zoDmXhBR3wxSQ3qJyoQjvIF6rgysxB+kaSsDy1Ja6vkJPgFzMs+yYWmzuhdAlPDMX1l+sevbFdDCwkVrxK+SjHUZJ+7YlN2MdDFBhHp4+1T6IBV6E8jpjV8svJn9RgiYVJO2HRqunHRnwSbT7ZeYWxn9MSbHUtRllEPwt+dYRzdi0FqKB7cTDxY1Y1aA/TCK1ILATr9208h9+vUMIPXYgV3kZ4TigNi9/oLid5/8itvy6SHk0Zj5tYBZlxygcyludQjk4gri1LW6MREXJ1IoAFwmb7uIwIDs5RYt9KAPV/qVD3npXqT434cW60zErOF1YEfRHJZxioc/5MM6ncYylLycWikt/iNlkBYw3SsJnFPr/YrLaj7JqNLmdpISDzi3svWWqjwydwyDZmdX2VkKXrG/KTPUe/C/yb5he1L+ZfWn0GsiHBmyGq8nqOHo4pce/Wy8koRt+Byk5VrI8PpSzL69Ll7U=
+  app: rss
+  domain: rss-beguel

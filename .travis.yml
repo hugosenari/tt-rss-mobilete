@@ -1,0 +1,14 @@
+language: node_js
+node_js:
+  - "6"
+  - "6.1"
+before_script:
+  - npm install grunt-cli -g
+  - npm install .
+before_deploy:
+  - grunt
+deploy:
+  provider: openshift
+  user: "hugosenari"
+  app: "rss-beguel"
+  domain: "rss-beguel.rhcloud.com"

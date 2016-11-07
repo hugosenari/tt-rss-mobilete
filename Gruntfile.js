@@ -89,5 +89,6 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-htmlmin');
     grunt.loadNpmTasks('grunt-embed');
-    grunt.registerTask('default', ['uglify', 'cssmin', 'htmlmin', 'embed', 'connect', 'watch']);
+    grunt.registerTask('default', ['uglify', 'cssmin', 'htmlmin', 'embed']);
+    grunt.registerTask('serve', ['default', 'connect', 'watch']);
 }

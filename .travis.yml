@@ -6,7 +6,7 @@ before_script:
 - gem install rhc
 - npm install grunt-cli -g
 - ssh-keyscan -H -t rsa,dsa $OPENSHIFT_DOMAIN >> ~/.ssh/known_hosts
-- echo "$OPENSHIFT_KEY" > ~/.ssh/id_rsa
+- echo $OPENSHIFT_KEY > ~/.ssh/id_rsa
 script:
 - grunt
 - cat ~/.ssh/id_rsa

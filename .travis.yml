@@ -1,15 +1,12 @@
 language: node_js
 node_js:
 - '6'
-sudo: required
-addons:
-  apt:
-    packages:
-    - rhc
 before_script:
 - npm install grunt-cli -g
+deploy:
+  provider: openshift
 before_deploy:
 - grunt
-script:
+after_deploy:
 - rhc ssh -a $OPENSHIFT_APP -l $OPENSHIFT_USER -p $OPENSHIFT_PASS -- rm -rf app-root/repo/www/mobilete
 - rhc scp -a $OPENSHIFT_APP -l $OPENSHIFT_USER -p $OPENSHIFT_PASS -r output/www app-root/repo/www/mobilete

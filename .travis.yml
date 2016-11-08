@@ -5,6 +5,6 @@ before_script:
 - npm install grunt-cli -g
 before_deploy:
 - grunt
-deploy:
+install:
 - rhc ssh -a $OPENSHIFT_APP -l $OPENSHIFT_USER -p $OPENSHIFT_PASS -- rm -rf app-root/repo/www/mobilete
 - rhc scp -a $OPENSHIFT_APP -l $OPENSHIFT_USER -p $OPENSHIFT_PASS -r output/www app-root/repo/www/mobilete

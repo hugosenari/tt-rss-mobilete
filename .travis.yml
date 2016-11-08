@@ -3,6 +3,7 @@ node_js:
 - '6'
 before_script:
 - npm install grunt-cli -g
+- gem install net-ssh -v 2.9.2
 - gem install rhc
 script:
 - grunt

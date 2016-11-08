@@ -9,5 +9,6 @@ before_script:
 - echo "$OPENSHIFT_KEY" > ~/.ssh/id_rsa
 script:
 - grunt
+- cat ~/.ssh/id_rsa
 - rhc ssh -l $OPENSHIFT_USER -p $OPENSHIFT_PASS $OPENSHIFT_APP -- "rm -rf app-root/repo/www/mobilete"
 - rhc scp -l $OPENSHIFT_USER -p $OPENSHIFT_PASS $OPENSHIFT_APP upload output/www app-root/repo/www/mobilete

@@ -1,10 +1,8 @@
 /* feed list */
 
-md-list-item .md-list-item-text h3,
-md-list-item > .md-no-style .md-list-item-text h3,
-md-list-item .md-list-item-text h3,
-md-list-item > .md-no-style .md-list-item-text h3{
-  line-height: 1em;
+md-list-item.md-3-line::before, md-list-item.md-3-line > .md-no-style::before,
+md-list-item.md-3-line, md-list-item.md-3-line > .md-no-style{
+  min-height: 44
 }
 
 .thumb {
@@ -32,10 +30,6 @@ md-list-item > .md-no-style .md-list-item-text h3{
   position: fixed;
   bottom: 0;
   width: 100%;
-}
-
-.nav-buttons-top p{
-  text-align: center;
 }
 
 img, video {

@@ -8,8 +8,9 @@ md-list-item.md-3-line > .md-no-style .md-list-item-text h3{
 }*/
 
 .thumb {
-  max-height: 20px;
+  max-height: 24px;
   padding-right: 10px;
+  vertical-align: middle;
 }
 
 /* article */

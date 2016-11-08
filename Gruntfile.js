@@ -36,6 +36,14 @@ module.exports = function(grunt) {
                 dest: 'output/uglify',
                 cwd: 'www'
             }]
+          },
+          other_target: {
+            files: [{
+                expand: true,
+                src: '**/plugins/*.js',
+                dest: 'output/www/js/',
+                cwd: 'www'
+            }]
           }
         },
         cssmin: {

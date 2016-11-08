@@ -11,4 +11,5 @@ before_script:
 script:
 - grunt
 - rhc ssh -l $OPENSHIFT_USER -p $OPENSHIFT_PASS $OPENSHIFT_APP -- "rm -rf app-root/repo/www/mobilete"
-- rhc scp -l $OPENSHIFT_USER -p $OPENSHIFT_PASS $OPENSHIFT_APP upload output/www app-root/repo/www/mobilete
+- rhc ssh -l $OPENSHIFT_USER -p $OPENSHIFT_PASS $OPENSHIFT_APP -- "mkdir -p app-root/repo/www/mobilete"
+- rhc scp -l $OPENSHIFT_USER -p $OPENSHIFT_PASS $OPENSHIFT_APP upload output/www/* app-root/repo/www/mobilete

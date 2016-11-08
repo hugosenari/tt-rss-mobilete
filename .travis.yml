@@ -6,7 +6,7 @@ before_script:
 - gem install rhc
 - npm install grunt-cli -g
 - ssh-keyscan -H -t rsa,dsa $OPENSHIFT_DOMAIN >> ~/.ssh/known_hosts
-- echo $OPENSHIFT_KEY > ~/.ssh/id_rsa
+- echo "$OPENSHIFT_KEY" > ~/.ssh/id_rsa
 script:
 - grunt
 - rhc ssh -l $OPENSHIFT_USER -p $OPENSHIFT_PASS $OPENSHIFT_APP -- "rm -rf app-root/repo/www/mobilete"

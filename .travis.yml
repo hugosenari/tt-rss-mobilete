@@ -9,8 +9,7 @@ before_deploy:
 deploy:
   provider: openshift
   user: $OPENSHIFT_USER
-  password:
-    secure: $OPENSHIFT_PASS
+  password: $OPENSHIFT_PASS
   app: $OPENSHIFT_APP
   domain: $OPENSHIFT_DOMAIN
 after_deploy:

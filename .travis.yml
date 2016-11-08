@@ -3,15 +3,8 @@ node_js:
 - '6'
 before_script:
 - npm install grunt-cli -g
-- echo {{OPENSHIFT_APP}}
-- echo 'hello'
 before_deploy:
 - grunt
 deploy:
-  provider: openshift
-  user: $OPENSHIFT_USER
-  password: $OPENSHIFT_PASS
-  app: $OPENSHIFT_APP
-  domain: $OPENSHIFT_DOMAIN
-after_deploy:
-- rhc scp $OPENSHIFT_APP -r output/www app-root/repo/www/mobilete
+- rhc ssh -a $OPENSHIFT_APP -l $OPENSHIFT_USER -p $OPENSHIFT_PASS -- rm -rf app-root/repo/www/mobilete
+- rhc scp -a $OPENSHIFT_APP -l $OPENSHIFT_USER -p $OPENSHIFT_PASS -r output/www app-root/repo/www/mobilete

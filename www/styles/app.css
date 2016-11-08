@@ -1,7 +1,9 @@
 /* feed list */
 
-md-list-item.md-3-line::before, md-list-item.md-3-line > .md-no-style::before,
-md-list-item.md-3-line, md-list-item.md-3-line > .md-no-style{
+md-list md-list-item.md-3-line,
+md-list md-list-item.md-3-line::before,
+md-list md-list-item.md-3-line > .md-no-style,
+md-list md-list-item.md-3-line > .md-no-style::before {
   min-height: 44
 }
 

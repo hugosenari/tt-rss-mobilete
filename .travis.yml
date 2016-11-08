@@ -10,7 +10,7 @@ before_script:
 - chmod 400 ~/.ssh/id_rsa
 script:
 - grunt
-- export OPENSHIFT_SSH=`rhc app show rss|grep SSH:|cut -c10-|tr -d  ' '`
+- export OPENSHIFT_SSH=`rhc app show -l $OPENSHIFT_USER -p $OPENSHIFT_PASS $OPENSHIFT_APP|grep SSH:|cut -c10-|tr -d  ' '`
 - echo "$OPENSHIFT_SSH"
 - ssh $OPENSHIFT_SSH "sh -e 'rm -rf app-root/repo/www/mobilete/;mkdir -p app-root/repo/www/mobilete'"
 - scp output/www -r $OPENSHIFT_SSH:app-root/repo/www/mobilete

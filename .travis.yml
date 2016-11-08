@@ -3,6 +3,7 @@ node_js:
 - '6'
 before_script:
 - npm install grunt-cli -g
+- gem install dpl
 - dpl --provider=openshift --user=$OPENSHIFT_USER --password=$OPENSHIFT_PASS --domain=$OPENSHIFT_DOMAIN:
 script:
 - grunt

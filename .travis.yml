@@ -1,8 +1,11 @@
 language: node_js
 node_js:
 - '6'
+addons:
+  apt:
+    packages:
+    - rhc
 before_script:
-- gem install rhc
 - npm install grunt-cli -g
 before_deploy:
 - grunt

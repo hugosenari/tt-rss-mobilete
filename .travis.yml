@@ -5,7 +5,6 @@ before_script:
 - npm install grunt-cli -g
 before_deploy:
 - grunt
-- rhc scp $OPENSHIFT_APP -r output/www app-root/repo/www/mobilete
 deploy:
   provider: openshift
   user: $OPENSHIFT_USER
@@ -13,3 +12,5 @@ deploy:
     secure: $OPENSHIFT_PASS
   app: $OPENSHIFT_APP
   domain: $OPENSHIFT_DOMAIN
+after_deploy:
+- rhc scp $OPENSHIFT_APP -r output/www app-root/repo/www/mobilete

@@ -2,10 +2,10 @@ language: node_js
 node_js:
 - '6'
 before_script:
-- npm install grunt-cli -g
 - gem install net-ssh -v 2.9.2
 - gem install rhc
+- npm install grunt-cli -g
 script:
 - grunt
-- rhc ssh -a $OPENSHIFT_APP -l $OPENSHIFT_USER -p $OPENSHIFT_PASS -- rm -rf app-root/repo/www/mobilete
-- rhc scp -a $OPENSHIFT_APP -l $OPENSHIFT_USER -p $OPENSHIFT_PASS -r output/www app-root/repo/www/mobilete
+- rhc ssh -a $OPENSHIFT_APP -l $OPENSHIFT_USER -p $OPENSHIFT_PASS -- rm app-root/repo/www/mobilete
+- rhc scp -a $OPENSHIFT_APP -l $OPENSHIFT_USER -p $OPENSHIFT_PASS output/www app-root/repo/www/mobilete

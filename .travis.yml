@@ -7,5 +7,5 @@ before_script:
 - npm install grunt-cli -g
 script:
 - grunt
-- rhc ssh -a $OPENSHIFT_APP -l $OPENSHIFT_USER -p $OPENSHIFT_PASS -- rm app-root/repo/www/mobilete
-- rhc scp -a $OPENSHIFT_APP -l $OPENSHIFT_USER -p $OPENSHIFT_PASS output/www app-root/repo/www/mobilete
+- rhc ssh -a $OPENSHIFT_APP -l $OPENSHIFT_USER -p $OPENSHIFT_PASS -- "rm -rf app-root/repo/www/mobilete"
+- rhc scp -a $OPENSHIFT_APP -l $OPENSHIFT_USER -p $OPENSHIFT_PASS -f output/www -r app-root/repo/www/mobilete

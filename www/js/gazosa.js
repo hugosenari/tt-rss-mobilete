@@ -4,7 +4,7 @@
 	mobilete.factory('Api', ['$http', '$q', function($http, $q) {
 		var api = '/api/',
 			dataRequest = {},
-			checkedSession = null,
+			checkedSession = 0,
 			tokenExpiration = 1000 * 60 * 20,
 			markAsReadIds = [],
 			markAsReadTimout = null,

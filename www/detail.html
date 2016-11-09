@@ -10,7 +10,7 @@
       </md-button>
     </div>
     
-    <p><small>{{article.feed_title}}</small></p>
+    <p><small ng-href='{{back}}'>{{article.feed_title}}</small></p>
     
     <div>
       <md-button class="md-icon-button" ng-click="openOtherItem(+1)" ng-if="hasPrev">

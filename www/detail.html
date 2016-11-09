@@ -12,17 +12,14 @@
     
     <p>
       <small>
-        <md-button
-          aria-label="{{article.feed_title}}"
-          ng-href='{{back}}'
-        >
-        {{article.feed_title}}
-        </md-button>
+        <a aria-label="{{article.feed_title}}" ng-href='{{back}}'>
+          {{article.feed_title}}
+        </a>
       </small>
     </p>
-    
+
     <div>
-      <md-button class="md-icon-button" ng-click="openOtherItem(+1)" ng-if="hasPrev">
+     >
       <i class="material-icons">skip_next</i>
       </md-button>
     </div>

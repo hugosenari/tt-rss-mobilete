@@ -1,14 +1,7 @@
 <md-content>
     <md-subheader class="md-primary">
-      <img ng-src="{{iconPath(feed.id)}}" class="thumb" alt="{{feed.title}}"  ng-if="feed.has_icon">
-      ({{feed.unread}}) {{feed.title}}
-      <span flex></span>
-      <md-button
-               class="md-icon-button"
-               aria-label="Refresh"
-               ng-click="reloadRoute()">
-        <i class="material-icons">autorenew</i>
-      </md-button>
+      <img ng-src="{{iconPath(feed.id)}}" class="thumb" alt="{{feed.title}}"  ng-if="feed.has_icon"/>
+      <a ng-click="reloadRoute()">({{feed.unread}}) {{feed.title}}</a>
     </md-subheader>
     <md-content layout-align="center center" layout>
       <md-progress-circular md-mode="indeterminate" ng-show="!items || !feed"></md-progress-circular>
@@ -25,7 +18,6 @@
         <img ng-src="{{iconPath(item.id)}}" class="thumb" alt="{{item.title}}"  ng-if="item.has_icon">
         <div class="md-list-item-text">
           <h3>{{item.title}}</h3>
-          <p ng-bind-html="item.excerpt"></p>
         </div>
         <i class="material-icons">arrow_forward</i>
       </md-list-item>

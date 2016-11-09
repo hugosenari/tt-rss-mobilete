@@ -1,20 +1,16 @@
-/* toolbar */
-.md-toolbar-tools .material-icons{font-size: 42px;}
-
-.md-3-line .material-icons{font-size: 32px;}
-
 /* feed list */
 
-md-list-item.md-2-line .md-list-item-text h3,
-md-list-item.md-2-line > .md-no-style .md-list-item-text h3,
-md-list-item.md-3-line .md-list-item-text h3,
-md-list-item.md-3-line > .md-no-style .md-list-item-text h3{
-  line-height: 1em;
+md-list md-list-item.md-3-line,
+md-list md-list-item.md-3-line::before,
+md-list md-list-item.md-3-line > .md-no-style,
+md-list md-list-item.md-3-line > .md-no-style::before {
+  min-height: 50px;
 }
 
 .thumb {
-  max-height: 20px;
+  max-height: 24px;
   padding-right: 10px;
+  vertical-align: middle;
 }
 
 /* article */
@@ -22,18 +18,13 @@ md-list-item.md-3-line > .md-no-style .md-list-item-text h3{
   padding-bottom: 60px;
 }
 
-.article-content img{
-  max-width: 100%;
-}
-
 .article .md-subheader .md-subheader-inner{
   padding-top: 0px;
 }
 
-/* nav buttons*/
+/* nav buttons */
 .nav-buttons .material-icons{
   font-size: 30px;
-  margin-top: 10px;
   color: #eee;
 }
 
@@ -41,10 +32,6 @@ md-list-item.md-3-line > .md-no-style .md-list-item-text h3{
   position: fixed;
   bottom: 0;
   width: 100%;
-}
-
-.nav-buttons-top p{
-  text-align: center;
 }
 
 img, video {

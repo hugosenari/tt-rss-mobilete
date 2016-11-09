@@ -262,13 +262,15 @@
 		};
 		
 		$scope.markAsReaded = function(article){
-			Inform.bottom('Marked as readed');
 			if (article.unread) {
 				article.unread = false;
 				var feed = $scope.feed;
 				feed.unread = feed.unread === 0 ? 0 : feed.unread - 1;
 				$scope.feed = feed;
-				Api.markAsReaded(article.id);
+				Api.markAsReaded(article.id)
+					.success(function() {
+						Inform.bottom('Marked as readed');
+					});
 			}
 		};
 		
@@ -308,26 +310,30 @@
 		}
 		
 		function markFocusedAsRead() {
-			Inform.bottom('Marked as readed');
 			if (items[index].unread) {
 				items[index].unread = false;
 				var feed = $scope.feed;
 				feed.unread = feed.unread === 0 ? 0 : feed.unread - 1;
 				$scope.feed = feed;
-				Api.markAsReaded(items[index].id);
+				Api.markAsReaded(items[index].id)
+					.success(function() {
+						Inform.bottom('Marked as readed');
+					});
 			}
 			focusOn(+1);
 		}
 		
 		function openFocusedInOtherTab() {
-			Inform.bottom('Open in new tab/window');
 			window.open(items[index].link, items[index].link);
 			if (items[index].unread) {
 				items[index].unread = false;
 				var feed = $scope.feed;
 				feed.unread = feed.unread === 0 ? 0 : feed.unread - 1;
 				$scope.feed = feed;
-				Api.markAsReaded(items[index].id);
+				Api.markAsReaded(items[index].id)
+					.success(function() {
+						Inform.bottom('Open in new tab/window');
+					});
 			}
 			focusOn(+1);
 		}

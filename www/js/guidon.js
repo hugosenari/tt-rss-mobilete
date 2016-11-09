@@ -49,7 +49,7 @@
 		$scope.$on('$routeChangeError', function (event, current, prev, rejection) {
 			if (rejection && rejection.id == 'invalid-sid') {
 				Settings.set('sid', null);
-				Inform('Unknow token');
+				Inform.bottom('Unknow token');
 				$window.location.href = '#/login';
 			}
 		});
@@ -87,7 +87,7 @@
 			$scope.saving = true;
 			Api.setApi(settings.api).then(
 				function() {
-					Inform('Settings saved');
+					Inform.bottom('Settings saved');
 					Settings.set('api-url', settings.api);
 					Settings.set('unread_only', settings.unread_only);
 					var plugins = [];
@@ -103,7 +103,7 @@
 				},
 				function() {
 					$scope.saving = false;
-					Inform('invalid or not working API');
+					Inform.bottom('invalid or not working API');
 					$scope.form.api.$error.invalid = true;
 				}
 			);
@@ -139,10 +139,10 @@
 				function (reason) {
 					$scope.saving = false;
 					if (reason.id === 'invalid-api') {
-						Inform('Invalid or not working API');
+						Inform.bottom('Invalid or not working API');
 						$scope.form.user.$error.unavailable = true;
 					} else {
-						Inform('Wrong user/pass');
+						Inform.bottom('Wrong user/pass');
 						$scope.form.user.$error.invalid = true;
 						$scope.form.password.$error.invalid = true;
 					}
@@ -160,7 +160,7 @@
 			function (data) {
 				$scope.categories = data.content;
 				if (!data.content.length){
-					Inform('Empty');
+					Inform.bottom('Empty');
 				}
 			}
 		);
@@ -178,7 +178,7 @@
 				Api.feeds(value).then(function(data){
 					$scope.items = data.content;
 					if (!data.content.length){
-						Inform('Empty');
+						Inform.bottom('Empty');
 					}
 				});
 			}
@@ -240,7 +240,7 @@
 				$scope.items = data.content;
 				items = data.content;
 				if (!data.content.length){
-					Inform('Empty');
+					Inform.bottom('Empty');
 				} else {
 					bindShortcuts();
 					focusOn(0);
@@ -262,7 +262,7 @@
 		};
 		
 		$scope.markAsReaded = function(article){
-			Inform('Marked as readed');
+			Inform.bottom('Marked as readed');
 			if (article.unread) {
 				article.unread = false;
 				var feed = $scope.feed;
@@ -273,7 +273,7 @@
 		};
 		
 		$scope.openInOtherTab = function(article) {
-			Inform('Open in new tab/window');
+			Inform.bottom('Open in new tab/window');
 			if (article.unread) {
 				article.unread = false;
 				var feed = $scope.feed;
@@ -308,7 +308,7 @@
 		}
 		
 		function markFocusedAsRead() {
-			Inform('Marked as readed');
+			Inform.bottom('Marked as readed');
 			if (items[index].unread) {
 				items[index].unread = false;
 				var feed = $scope.feed;
@@ -320,7 +320,7 @@
 		}
 		
 		function openFocusedInOtherTab() {
-			Inform('Open in new tab/window');
+			Inform.bottom('Open in new tab/window');
 			window.open(items[index].link, items[index].link);
 			if (items[index].unread) {
 				items[index].unread = false;
@@ -425,13 +425,13 @@
 					$routeParams.feed + '/'+
 					list[newIndex].id;
 			} else {
-				Inform('Nothing this side');
+				Inform.bottom('Nothing this side');
 			}
 		};
 
 		
 		function openInOtherTab() {
-			Inform('Open in new tab/window');
+			Inform.bottom('Open in new tab/window');
 			window.open($scope.article.link, $scope.article.link);
 		}
 		

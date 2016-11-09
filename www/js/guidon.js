@@ -268,7 +268,7 @@
 				feed.unread = feed.unread === 0 ? 0 : feed.unread - 1;
 				$scope.feed = feed;
 				Api.markAsReaded(article.id)
-					.success(function() {
+					.then(function() {
 						Inform.bottom('Marked as readed');
 					});
 			}
@@ -316,7 +316,7 @@
 				feed.unread = feed.unread === 0 ? 0 : feed.unread - 1;
 				$scope.feed = feed;
 				Api.markAsReaded(items[index].id)
-					.success(function() {
+					.then(function() {
 						Inform.bottom('Marked as readed');
 					});
 			}
@@ -331,7 +331,7 @@
 				feed.unread = feed.unread === 0 ? 0 : feed.unread - 1;
 				$scope.feed = feed;
 				Api.markAsReaded(items[index].id)
-					.success(function() {
+					.then(function() {
 						Inform.bottom('Open in new tab/window');
 					});
 			}

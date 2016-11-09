@@ -3,15 +3,14 @@
 	var mobilete = angular.module('ttRssMobilete');
 
 	mobilete.factory('Inform', ['$mdToast', function($mdToast) {
-		var result = function(msg) {
+		return function(msg) {
 			$mdToast.show(
 			  $mdToast.simple()
 				.content(msg)
-				.position('top right')
+				.position('bottom right')
 				.hideDelay(3000)
 			);
 		};
-		return result;
 	}]);
 	
 	mobilete.factory('Plugins', ['Settings', function(Settings) {

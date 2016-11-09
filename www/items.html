@@ -1,7 +1,7 @@
 <md-content>
-    <md-subheader class="md-primary" ng-click="reloadRoute()">
+    <md-subheader class="md-primary">
       <img ng-src="{{iconPath(feed.id)}}" class="thumb" alt="{{feed.title}}"  ng-if="feed.has_icon"/>
-      ({{feed.unread}}) {{feed.title}}
+      <a ng-click="reloadRoute()">({{feed.unread}}) {{feed.title}}</a>
     </md-subheader>
     <md-content layout-align="center center" layout>
       <md-progress-circular md-mode="indeterminate" ng-show="!items || !feed"></md-progress-circular>

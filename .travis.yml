@@ -8,7 +8,8 @@ before_script:
 - chmod 400 ~/.ssh/id_rsa
 script:
 - grunt
-- export BRANCH_NAME=`echo "$TRAVIS_BRANCH"|grep -v master`
-- echo "$OPENSHIFT_SSH $BRANCH_NAME"
+- export BRANCH_NAME=`[[ $TRAVIS_BRANCH = "master" ]] && a="" || a="_$TRAVIS_BRANCH";echo $a`
+- export SRC_DIR=`[[ $TRAVIS_BRANCH = "master" ]] && a="output/www" || a="www";echo $a`
+- echo "$SRC_DIR $BRANCH_NAME"
 - ssh $OPENSHIFT_SSH rm -rf app-root/repo/www/mobilete$BRANCH_NAME
-- scp -r output/www  "$OPENSHIFT_SSH":app-root/repo/www/mobilete$BRANCH_NAME
+- scp -r $SRC_DIR  "$OPENSHIFT_SSH":app-root/repo/www/mobilete$BRANCH_NAME
